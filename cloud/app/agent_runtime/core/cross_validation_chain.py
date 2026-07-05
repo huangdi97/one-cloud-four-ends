@@ -28,6 +28,7 @@ class CascadeMonitor:
         self._chain_steps: dict[str, list[dict[str, Any]]] = {}
 
     def record_step(self, entry: SharedStateEntry) -> None:
+        """Record a cascade step, update cumulative confidence, and alert if below threshold."""
         chain_id = self._resolve_chain_id(entry)
         step_info = {
             "namespace": entry.namespace,
@@ -49,6 +50,7 @@ class CascadeMonitor:
             self._raise_alert(chain_id, cumulative, steps)
 
     def get_chain_health(self, chain_id: str) -> dict[str, Any] | None:
+        """Read the latest health record for a given cascade chain."""
         results = self._ss.read(CASCADE_HEALTH_NAMESPACE, key=chain_id)
         if not results:
             return None
@@ -134,6 +136,7 @@ class CrossValidationChain:
 
     @property
     def cascade_monitor(self) -> CascadeMonitor:
+        """Return the shared CascadeMonitor instance used to track chain health."""
         return self._cascade_monitor
 
     def evaluate_chain(self, entry: SharedStateEntry) -> list[dict]:

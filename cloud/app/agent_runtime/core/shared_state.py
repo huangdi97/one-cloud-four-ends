@@ -18,6 +18,7 @@ _global_ss_lock = threading.Lock()
 
 
 def get_shared_state() -> "SharedState":
+    """Return the singleton SharedState instance."""
     global _global_shared_state
     if _global_shared_state is None:
         with _global_ss_lock:
@@ -74,9 +75,11 @@ class SharedState:
 
     @property
     def backend(self):
+        """Return the optional persistence backend."""
         return self._backend
 
     def write(self, entry: SharedStateEntry, caller_agent_key: str | None = None) -> None:
+        """Write an entry to shared state with optional caller validation."""
         entry.namespace = self._ensure_tenant_prefix(entry.namespace)
         if caller_agent_key:
             _validate_namespace(caller_agent_key, entry.namespace)
@@ -101,6 +104,7 @@ class SharedState:
         key: str | None = None,
         min_confidence: float = 0.0,
     ) -> List[SharedStateEntry]:
+        """Read entries matching namespace and optional key filter."""
         namespace = self._ensure_tenant_prefix(namespace)
         results = []
         with self._lock:
@@ -115,6 +119,7 @@ class SharedState:
         return results
 
     def watch(self, namespace_pattern: str) -> Generator[SharedStateEntry, None, None]:
+        """Yield entries matching a namespace regex pattern."""
         import queue
 
         q: queue.Queue[SharedStateEntry | None] = queue.Queue()
@@ -146,6 +151,7 @@ class SharedState:
             self._subscribers.setdefault("__all__", []).append(callback)
 
     def unsubscribe(self, callback: callable) -> None:
+        """Remove a previously registered subscriber callback."""
         with self._lock:
             callbacks = self._subscribers.get("__all__", [])
             if callback in callbacks:
@@ -166,6 +172,7 @@ class SharedState:
                 logger.exception("Subscriber callback failed")
 
     def list_all_namespaces(self) -> dict[str, list]:
+        """Return all namespaces and their values (excluding shared.*)."""
         with self._lock:
             result: dict[str, list] = {}
             for e in self._entries:

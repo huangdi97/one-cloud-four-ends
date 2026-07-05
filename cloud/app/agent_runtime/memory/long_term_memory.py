@@ -34,6 +34,7 @@ class LongTermMemory:
         tmp.replace(self._path)
 
     def remember(self, namespace: str, key: str, value, ttl: int | None = None) -> None:
+        """记忆一个事实到指定 namespace。"""
         entry = {"value": value, "timestamp": datetime.utcnow().isoformat()}
         if ttl:
             entry["ttl"] = ttl
@@ -44,6 +45,7 @@ class LongTermMemory:
             self._save()
 
     def recall(self, namespace: str, key: str | None = None):
+        """从指定 namespace 回忆事实，支持 TTL 过期检查。"""
         with self._lock:
             facts = self._data.get("facts", {})
             if namespace not in facts:
@@ -71,6 +73,7 @@ class LongTermMemory:
         return (datetime.utcnow() - created).total_seconds() > entry["ttl"]
 
     def learn_from_feedback(self, namespace: str, key: str, feedback: dict) -> None:
+        """从反馈中学习并持久化。"""
         with self._lock:
             self._data["feedback"].append(
                 {
@@ -83,10 +86,12 @@ class LongTermMemory:
             self._save()
 
     def get_preferences(self, namespace: str) -> dict:
+        """获取指定 namespace 的偏好设置。"""
         with self._lock:
             return self._data.get("preferences", {}).get(namespace, {})
 
     def set_preference(self, namespace: str, key: str, value) -> None:
+        """设置指定 namespace 的偏好值。"""
         with self._lock:
             if namespace not in self._data["preferences"]:
                 self._data["preferences"][namespace] = {}

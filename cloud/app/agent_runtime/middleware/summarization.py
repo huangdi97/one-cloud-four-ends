@@ -18,9 +18,11 @@ class SummarizationMiddleware(Middleware):
     name = "summarization"
 
     def before_execute(self, goal: str, agent_key: str, context: dict | None) -> dict | None:
+        """Pass context through unchanged before execution."""
         return context
 
     def after_execute(self, goal: str, agent_key: str, result: dict[str, Any]) -> dict[str, Any] | None:
+        """Summarize conversation history if token limit is approaching."""
         messages = result.get("messages", [])
         if not messages:
             return None

@@ -7,6 +7,7 @@ class ReasoningChain:
     """Rule-based reasoning chains for goal decomposition and exploration."""
 
     def chain_of_thought(self, goal: str, context: dict | None = None) -> list[dict]:
+        """Decompose a goal into sequential reasoning steps via sentence splitting or decomposition."""
         steps = []
         sentences = [s.strip() for s in re.split(r"[.?!]\s+", goal) if s.strip()]
         num_sentences = len(sentences)
@@ -42,6 +43,7 @@ class ReasoningChain:
         return steps
 
     def tree_of_thought(self, goal: str, context: dict | None = None, branches: int = 3) -> list[dict]:
+        """Explore multiple reasoning branches and return the highest-scoring path."""
         root_steps = self.chain_of_thought(goal, context)
         if not root_steps:
             return []
@@ -65,6 +67,7 @@ class ReasoningChain:
         return best_path or root_steps[:3]
 
     def react_loop(self, goal: str, tools: list[str], max_steps: int = 10) -> list[dict]:
+        """Simulate a ReAct-style thought-action-observation loop up to max_steps steps."""
         history = []
         observation = f"Starting goal: {goal}"
 

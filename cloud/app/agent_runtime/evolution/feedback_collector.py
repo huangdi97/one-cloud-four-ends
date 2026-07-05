@@ -31,6 +31,7 @@ class FeedbackCollector:
     """
 
     def __init__(self, storage_path: str = DEFAULT_FEEDBACK_PATH):
+        """Initialize feedback collector with persistent JSON storage."""
         self._path = Path(storage_path)
         self._lock = threading.Lock()
         self._data: dict[str, list[dict]] = defaultdict(list)

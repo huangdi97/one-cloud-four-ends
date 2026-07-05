@@ -1,8 +1,11 @@
+"""Accuracy, latency, and confidence calibration evaluation metrics."""
+
 import math
 from typing import Sequence
 
 
 def accuracy_score(correct: int, total: int) -> dict:
+    """Compute accuracy as correct / total."""
     if total <= 0:
         return {"accuracy": 0.0, "correct": 0, "total": 0}
     return {
@@ -13,6 +16,7 @@ def accuracy_score(correct: int, total: int) -> dict:
 
 
 def latency_stats(latencies: Sequence[float]) -> dict:
+    """Compute p50, p95, and mean latency in milliseconds."""
     if not latencies:
         return {"p50_ms": 0.0, "p95_ms": 0.0, "mean_ms": 0.0, "count": 0}
     sorted_lats = sorted(latencies)
@@ -33,6 +37,7 @@ def confidence_calibration(
     correctness: Sequence[bool],
     n_bins: int = 10,
 ) -> dict:
+    """Compute expected calibration error (ECE) over n_bins."""
     if not confidences or len(confidences) != len(correctness):
         return {"ece": 0.0, "bins": [], "count": 0}
     bin_edges = [i / n_bins for i in range(n_bins + 1)]

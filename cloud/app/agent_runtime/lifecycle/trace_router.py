@@ -31,6 +31,7 @@ _trace_service: TraceService | None = None
 
 
 def get_trace_service() -> TraceService:
+    """Return the singleton TraceService instance."""
     global _trace_service
     if _trace_service is None:
         _trace_service = TraceService()
@@ -95,6 +96,7 @@ def agent_status_ui(user=Depends(require_scope("visit"))):
     response_description="返回trace详情",
 )
 def get_trace(trace_id: str, user=Depends(require_scope("visit"))):
+    """Retrieve a single trace by ID."""
     svc = get_trace_service()
     trace = svc.get_trace(trace_id)
     if trace is None:

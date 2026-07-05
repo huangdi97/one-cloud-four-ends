@@ -1,3 +1,5 @@
+"""Registry mapping trigger names to agent configs and plan builders."""
+
 TRIGGER_REGISTRY = {
     "anomaly_analysis": {
         "agent_key": "anomaly_analysis",

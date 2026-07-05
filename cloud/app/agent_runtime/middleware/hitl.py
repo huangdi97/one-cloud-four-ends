@@ -40,12 +40,15 @@ class HITLMiddleware(Middleware):
     name = "hitl"
 
     def __init__(self, approval_queue: Any | None = None):
+        """Initialize the HITL middleware with an optional approval queue."""
         self._approval_queue = approval_queue
 
     def before_execute(self, goal: str, agent_key: str, context: dict | None) -> dict | None:
+        """Pass context through unchanged before execution."""
         return context
 
     def after_execute(self, goal: str, agent_key: str, result: dict[str, Any]) -> dict[str, Any] | None:
+        """Check if the result requires human approval and annotate accordingly."""
         tool_name = result.get("tool", "")
         confidence = result.get("confidence", 1.0)
         threshold = self._classify(agent_key, tool_name, confidence)
@@ -94,6 +97,7 @@ def create_approval_request(
     threshold: str = "suggested",
     timeout_minutes: int = DEFAULT_TIMEOUT_MINUTES,
 ) -> str:
+    """Create a new approval request in shared state and return its ID."""
     from uuid import uuid4
 
     ss = get_shared_state()
@@ -129,6 +133,7 @@ def create_approval_request(
 
 
 def resolve_approval(approval_id: str, approver: str, resolution: str) -> bool:
+    """Resolve a pending approval with the given resolution. Returns True on success."""
     ss = get_shared_state()
     entries = ss.read(APPROVAL_NAMESPACE, key=approval_id)
     if not entries:
@@ -166,6 +171,7 @@ def resolve_approval(approval_id: str, approver: str, resolution: str) -> bool:
 
 
 def escalate_approval(approval_id: str) -> bool:
+    """Escalate an approval that has timed out. Returns True if escalated."""
     ss = get_shared_state()
     entries = ss.read(APPROVAL_NAMESPACE, key=approval_id)
     if not entries:
@@ -199,6 +205,7 @@ def escalate_approval(approval_id: str) -> bool:
 
 
 def check_approval_timeouts() -> list[str]:
+    """Check all pending approvals and escalate any that have timed out."""
     ss = get_shared_state()
     entries = ss.read(APPROVAL_NAMESPACE)
     escalated = []
@@ -215,6 +222,7 @@ def check_approval_timeouts() -> list[str]:
 
 
 def get_pending_approvals() -> list[dict]:
+    """Return all pending approvals from shared state."""
     ss = get_shared_state()
     entries = ss.read(APPROVAL_NAMESPACE)
     return [e.value for e in entries if e.value.get("status") == "pending"]

@@ -17,9 +17,11 @@ class Orchestrator:
         self._agents: dict[str, Any] = {}
 
     def register(self, agent_key: str, agent: Any) -> None:
+        """Register an agent with the orchestrator."""
         self._agents[agent_key] = agent
 
     def dispatch(self, task: str, agent_keys: list[str], context: dict | None = None) -> list[AgentResult]:
+        """Dispatch a task to multiple agents sequentially and return their results."""
         results: list[AgentResult] = []
         for key in agent_keys:
             try:
@@ -36,6 +38,8 @@ class Orchestrator:
         return results
 
     async def dispatch_async(self, task: str, agent_keys: list[str], context: dict | None = None) -> list[AgentResult]:
+        """Dispatch a task to multiple agents concurrently and return their results."""
+
         async def _run(key: str) -> AgentResult:
             try:
                 if self._runtime:
@@ -51,6 +55,7 @@ class Orchestrator:
         return await asyncio.gather(*[_run(key) for key in agent_keys])
 
     def chain(self, task: str, steps: list[str], context: dict | None = None) -> AgentResult:
+        """Execute agents sequentially, feeding each agent's output as context to the next."""
         current_context = dict(context or {})
         last_result = ""
         for step_key in steps:
@@ -67,6 +72,7 @@ class Orchestrator:
         return AgentResult(agent_key=steps[-1], status="success", result=last_result)
 
     def aggregate(self, results: list[AgentResult]) -> dict:
+        """Aggregate multiple agent results into a summary dictionary."""
         return {
             "total": len(results),
             "success_count": sum(1 for r in results if r.status == "success"),

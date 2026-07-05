@@ -48,6 +48,7 @@ class Planner:
         self._reasoning = ReasoningChain()
 
     def plan(self, goal: str, agent_key: str, context: dict | None = None) -> dict:
+        """Produce a plan dict, optionally enriched with a reasoning chain for complex goals."""
         ctx = context or {}
         if self._is_complex(goal) or ctx.get("complex"):
             reason_steps = self._reasoning.chain_of_thought(goal, ctx)
@@ -75,6 +76,7 @@ class Planner:
         execution_context: dict | None = None,
         complexity: bool | None = None,
     ) -> Plan:
+        """Generate a validated Plan by calling the LLM and optionally applying chain-of-thought."""
         if complexity is None:
             complexity = self._is_complex(goal)
 

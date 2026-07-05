@@ -19,9 +19,11 @@ class Memory:
         self._audit_logger = None
 
     def set_audit_logger(self, logger) -> None:
+        """设置审计日志记录器。"""
         self._audit_logger = logger
 
     def set_vector_memory(self, vm) -> None:
+        """设置向量记忆后端。"""
         self._vector_memory = vm
 
     def get(self, agent_key: str, key: str, user_id: int = 0) -> Any | None:

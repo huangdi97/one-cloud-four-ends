@@ -32,6 +32,7 @@ class CostGovernor:
     VALID_TASK_TYPES = ("compliance_check", "anomaly_detection", "opportunity_scan", "coaching", "knowledge_query")
 
     def __init__(self, max_cost: float = 0.50, model: str = "deepseek-chat"):
+        """Initialize cost governor with budget and model config."""
         self._max_cost = max_cost
         self._model = model
         self._total_cost = 0.0
@@ -48,6 +49,7 @@ class CostGovernor:
         self._task_type: str = ""
 
     def set_task_type(self, task_type: str) -> None:
+        """Set the current task type for cost attribution."""
         if task_type and task_type not in self.VALID_TASK_TYPES:
             logger.warning("CostGovernor: unknown task_type '%s', valid: %s", task_type, self.VALID_TASK_TYPES)
         self._task_type = task_type if task_type in self.VALID_TASK_TYPES else ""
@@ -306,6 +308,7 @@ class CostGovernor:
         return [dict(r) for r in rows]
 
     def set_budget_alert(self, agent_name: str, threshold: float, callback=None):
+        """Register a budget alert callback for a specific agent."""
         self._budget_alerts[agent_name] = {"threshold": threshold, "callback": callback}
 
     def _check_budget_alerts(self, agent_name: str, cost: float):
@@ -322,6 +325,7 @@ class CostGovernor:
             cb(agent_name, cost, total)
 
     def record_cost(self, agent_name: str, cost: float) -> float:
+        """Record a cost entry for an agent and check budget alerts."""
         self._agent_costs[agent_name] = self._agent_costs.get(agent_name, 0.0) + cost
         self._total_cost += cost
         self._check_budget_alerts(agent_name, cost)

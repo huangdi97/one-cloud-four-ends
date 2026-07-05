@@ -103,8 +103,10 @@ td{{padding:12px 16px;border-top:1px solid #eee;font-size:14px}}
 class TraceHTMLRenderer:
     @staticmethod
     def render_dashboard() -> str:
+        """Return the HTML for the agent trace dashboard page."""
         return DASHBOARD_HTML
 
     @staticmethod
     def render_agents_page(rows_html: str) -> str:
+        """Return the HTML for the agent status overview page with the given rows."""
         return AGENTS_PAGE_HTML.format(rows_html=rows_html)

@@ -144,6 +144,7 @@ class TraceService:
         approval_status: str,
         human_reviewer: str = "",
     ) -> None:
+        """Log an agent decision to the audit log, with an extra auto-audit entry for high risk."""
         record = {
             "timestamp": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
             "agent_name": agent_name,
@@ -177,6 +178,7 @@ class TraceService:
         date_to: str | None = None,
         limit: int = 50,
     ) -> list[dict[str, Any]]:
+        """Retrieve agent decision audit records with optional filters."""
         log_file = Path(BIOPULSE_AUDIT_LOG)
         if not log_file.exists():
             return []

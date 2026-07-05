@@ -39,6 +39,7 @@ class SignalFusion:
     """
 
     def __init__(self, perceiver: UserStatePerceiver, storage_path: str = DEFAULT_FUSION_PATH):
+        """Initialize signal fusion with a user state perceiver and storage path."""
         self._perceiver = perceiver
         self._path = Path(storage_path)
         self._lock = threading.Lock()

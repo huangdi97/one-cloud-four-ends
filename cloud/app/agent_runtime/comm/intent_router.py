@@ -159,6 +159,7 @@ class IntentRouter:
             self._targets[intent_name] = intent_data["target_agent"]
 
     def route(self, text: str) -> tuple[str, float, str | None]:
+        """基于 bigram 余弦相似度 + softmax 路由用户输入到目标 Agent。"""
         text_vec = _char_bigrams(text)
         if not text_vec:
             return ("ambiguous", 0.0, None)
@@ -174,6 +175,7 @@ class IntentRouter:
         return ("ambiguous", confidence, None)
 
     def llm_fallback(self, text: str) -> tuple[str, float, str | None]:
+        """LLM 兜底分类，当语义路由置信度不足时使用。"""
         prompt = [
             {
                 "role": "system",

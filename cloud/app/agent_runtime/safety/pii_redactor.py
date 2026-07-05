@@ -1,3 +1,5 @@
+"""Redacts PII (phone, ID, email, Chinese names) from text."""
+
 import logging
 import re
 

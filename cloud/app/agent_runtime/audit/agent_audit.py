@@ -34,6 +34,7 @@ CREATE_INDEX_SQL = [
 
 class AgentAuditor:
     def __init__(self, db: sqlite3.Connection):
+        """Initialize the auditor with a database connection."""
         self._db = db
         self._ensure_table()
 
@@ -56,6 +57,7 @@ class AgentAuditor:
         feedback: str = "",
         timestamp: str | None = None,
     ) -> None:
+        """Log a single agent interaction to the audit database."""
         if user_action not in VALID_USER_ACTIONS:
             logger.warning("AgentAuditor: invalid user_action '%s', using 'accepted'", user_action)
             user_action = "accepted"
@@ -80,6 +82,7 @@ class AgentAuditor:
         limit: int = 100,
         offset: int = 0,
     ) -> list[dict]:
+        """Query audit logs with optional filters."""
         query = "SELECT * FROM agent_audit_log WHERE 1=1"
         params: list[str] = []
         if user_id:
@@ -103,6 +106,7 @@ class AgentAuditor:
         return [dict(r) for r in rows]
 
     def get_adoption_rate(self, days: int = 7) -> dict:
+        """Compute the adoption rate (accepted / total) over the given period."""
         cutoff = (datetime.utcnow() - timedelta(days=days)).isoformat()
         total = self._db.execute("SELECT COUNT(*) as cnt FROM agent_audit_log WHERE timestamp>=?", (cutoff,)).fetchone()["cnt"]
         if total == 0:
@@ -114,6 +118,7 @@ class AgentAuditor:
         return {"rate": round(accepted / total * 100, 2), "total": total, "accepted": accepted}
 
     def get_feedback_trends(self, days: int = 7) -> list[dict]:
+        """Return daily user-action counts for the given period."""
         cutoff = (datetime.utcnow() - timedelta(days=days)).isoformat()
         rows = self._db.execute(
             "SELECT DATE(timestamp) as day, user_action, COUNT(*) as count "
@@ -124,6 +129,7 @@ class AgentAuditor:
         return [dict(r) for r in rows]
 
     def get_high_dismiss(self, days: int = 7, min_count: int = 3) -> list[dict]:
+        """Return agents with dismiss counts above min_count."""
         cutoff = (datetime.utcnow() - timedelta(days=days)).isoformat()
         rows = self._db.execute(
             "SELECT agent_key, COUNT(*) as dismiss_count "
@@ -134,6 +140,7 @@ class AgentAuditor:
         return [dict(r) for r in rows]
 
     def get_summary_report(self, days: int = 7) -> dict:
+        """Generate a summary report of audit data for the given period."""
         cutoff = (datetime.utcnow() - timedelta(days=days)).isoformat()
         rows = self._db.execute(
             "SELECT user_action, COUNT(*) as count FROM agent_audit_log WHERE timestamp>=? GROUP BY user_action",

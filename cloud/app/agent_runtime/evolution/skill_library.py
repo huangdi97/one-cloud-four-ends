@@ -19,6 +19,7 @@ class SkillLibrary:
     """技能库 — 记录、检索、改进、统计 Agent 可复用技能。技能存为 Python 可执行代码片段。"""
 
     def __init__(self, storage_path: str = DEFAULT_SKILL_PATH, llm_url: str = ""):
+        """Initialize skill library with persistent storage and vector search."""
         self._path = Path(storage_path)
         self._lock = threading.Lock()
         self._data: dict[str, list[dict]] = {}

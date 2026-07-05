@@ -18,6 +18,7 @@ class ReflexionLoop:
     """Agent 执行后口头反思 → 存 episodic memory → 下次执行时读取反思 → 避开同类错误。"""
 
     def __init__(self, storage_path: str = DEFAULT_REFLECTION_PATH, llm_url: str = ""):
+        """Initialize reflexion loop with episodic memory and vector search."""
         self._path = Path(storage_path)
         self._lock = threading.Lock()
         self._data: dict[str, dict[str, list[dict]]] = {}

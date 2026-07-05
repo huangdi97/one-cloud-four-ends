@@ -43,6 +43,7 @@ class MemoryAuditLogger:
         self._fallback_log.append(entry)
 
     def query(self, agent_key: str | None = None, action: str | None = None, limit: int = 50) -> list[dict]:
+        """查询审计日志，支持按 agent_key 和 action 过滤。"""
         results = []
         if self._db:
             try:

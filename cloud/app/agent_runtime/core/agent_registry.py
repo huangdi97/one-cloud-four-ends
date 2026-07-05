@@ -16,6 +16,7 @@ class AgentRegistry:
 
     @classmethod
     def load(cls, agents_dir: str | Path | None = None) -> None:
+        """Scan agents_dir for identity.yaml files and populate the registry."""
         cls._agents.clear()
         base = Path(agents_dir) if agents_dir else _AGENTS_DIR
         if not base.is_dir():
@@ -34,12 +35,14 @@ class AgentRegistry:
 
     @classmethod
     def get(cls, key: str) -> Agent | None:
+        """Return the agent identified by key, loading on demand if needed."""
         if not cls._loaded:
             cls.load()
         return cls._agents.get(key)
 
     @classmethod
     def list(cls) -> list[Agent]:
+        """Return all registered agents, loading on demand if needed."""
         if not cls._loaded:
             cls.load()
         return list(cls._agents.values())
@@ -67,5 +70,6 @@ class AgentRegistry:
 
     @classmethod
     def reload(cls) -> None:
+        """Clear the cache and re-load all agents from disk."""
         cls._loaded = False
         cls.load()

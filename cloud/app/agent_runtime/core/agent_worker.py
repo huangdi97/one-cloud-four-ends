@@ -40,6 +40,7 @@ class AgentWorker:
     COMPUTE_INTENSIVE_AGENTS = {"compliance_monitor", "anomaly_analysis"}
 
     def __init__(self, agent_name: str, max_workers: int = 3):
+        """Initialize worker with a process pool for agent execution."""
         self.agent_name = agent_name
         self._pool = ProcessPoolExecutor(max_workers=max_workers)
 
@@ -57,6 +58,7 @@ class AgentWorker:
             return {"status": "error", "result": str(exc)}
 
     def health(self) -> bool:
+        """Check whether the process pool is responsive."""
         try:
             future = self._pool.submit(lambda: True)
             return future.result(timeout=5)

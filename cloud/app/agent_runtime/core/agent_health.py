@@ -1,3 +1,5 @@
+"""Tracks agent health status (healthy/degraded/stale/unhealthy)."""
+
 from datetime import datetime, timezone
 from threading import Lock
 from typing import Literal
@@ -27,6 +29,7 @@ class HealthTracker:
         return self._records[agent_name]
 
     def record_run(self, agent_name: str, success: bool, error: str = ""):
+        """Record a run outcome for the given agent."""
         with self._lock:
             record = self._get_or_create(agent_name)
             now = datetime.now(timezone.utc).isoformat()
@@ -61,21 +64,25 @@ class HealthTracker:
             record.status = "healthy"
 
     def is_unhealthy(self, agent_name: str) -> bool:
+        """Check if the agent has been marked unhealthy."""
         with self._lock:
             record = self._get_or_create(agent_name)
             return record.status == "unhealthy"
 
     def mark_stale(self, agent_name: str):
+        """Mark the agent as stale."""
         with self._lock:
             record = self._get_or_create(agent_name)
             record.status = "stale"
 
     def mark_unhealthy(self, agent_name: str):
+        """Mark the agent as unhealthy."""
         with self._lock:
             record = self._get_or_create(agent_name)
             record.status = "unhealthy"
 
     def get_health(self, agent_name: str) -> dict:
+        """Return the health record for the given agent."""
         with self._lock:
             record = self._get_or_create(agent_name)
             return {
@@ -91,10 +98,12 @@ class HealthTracker:
             }
 
     def get_all_health(self) -> list[dict]:
+        """Return health records for all tracked agents."""
         with self._lock:
             return [self.get_health(name) for name in self._records]
 
     def get_summary(self) -> dict:
+        """Return a summary of agent health counts."""
         with self._lock:
             total = len(self._records)
             healthy = sum(1 for r in self._records.values() if r.status == "healthy")
@@ -115,6 +124,7 @@ _tracker_lock = Lock()
 
 
 def get_health_tracker() -> HealthTracker:
+    """Return the singleton HealthTracker instance."""
     global _health_tracker
     if _health_tracker is None:
         with _tracker_lock:

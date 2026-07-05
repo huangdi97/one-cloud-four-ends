@@ -6,6 +6,7 @@ from collections import OrderedDict
 
 
 def estimate_tokens(text: str) -> int:
+    """Roughly estimate the token count of a text string."""
     return len(text) // 4
 
 
@@ -27,11 +28,13 @@ class ContextPager:
         self._priorities: dict[str, int] = {}
 
     def register_section(self, name: str, content: str, priority_label: str = "history") -> None:
+        """Register a content section with a priority label."""
         self._sections[name] = content
         self._priorities[name] = PRIORITY_ORDER.get(priority_label, 3)
         self._working[name] = content
 
     def page_in(self, section_name: str) -> str | None:
+        """Bring a section from long-term storage into working memory."""
         if section_name in self._long_term:
             content = self._long_term.pop(section_name)
             self._working[section_name] = content
@@ -39,11 +42,13 @@ class ContextPager:
         return self._sections.get(section_name)
 
     def page_out(self, section_name: str) -> None:
+        """Move a section from working memory to long-term storage."""
         if section_name in self._working:
             content = self._working.pop(section_name)
             self._long_term[section_name] = content
 
     def auto_manage(self, current_tokens: int | None = None) -> list[str]:
+        """Evict low-priority sections if working memory exceeds 80% of budget."""
         tokens = current_tokens if current_tokens is not None else self._estimate_working_tokens()
         budget_80pct = self._max_budget * 0.8
         evicted = []
@@ -70,6 +75,7 @@ class ContextPager:
         return sum(estimate_tokens(c) for c in self._working.values())
 
     def get_working_context(self) -> str:
+        """Return the assembled working context as a string."""
         sorted_sections = sorted(
             self._working.items(),
             key=lambda item: self._priorities.get(item[0], 3),
@@ -77,6 +83,7 @@ class ContextPager:
         return "\n\n".join(f"[{name}]\n{content}" for name, content in sorted_sections)
 
     def set_max_budget(self, budget: int) -> None:
+        """Update the maximum token budget."""
         self._max_budget = budget
 
 
@@ -86,9 +93,11 @@ class ContextEngine:
 
     @property
     def pager(self) -> ContextPager:
+        """Return the underlying ContextPager instance."""
         return self._pager
 
     def assemble(self, system_prompt: str, task: str, dialogue: list[dict], knowledge: list[dict]) -> list[dict]:
+        """Build a system message from prompt, task, dialogue, and knowledge."""
         self._pager.register_section("system_prompt", system_prompt, "system_prompt")
         self._pager.register_section("current_task", task, "current_task")
 

@@ -28,6 +28,7 @@ def _get_db():
 
 @router.post("/{agent_name}", tags=["Agent Prompts"])
 def update_prompt(agent_name: str, body: UpdatePromptRequest, user=Depends(require_scope("visit"))):
+    """Create a new prompt version for the given agent."""
     if agent_name not in AGENT_SPECS:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Unknown agent: {agent_name}")
     db = _get_db()
@@ -46,6 +47,7 @@ def update_prompt(agent_name: str, body: UpdatePromptRequest, user=Depends(requi
 
 @router.get("/{agent_name}/versions", tags=["Agent Prompts"])
 def list_versions(agent_name: str, user=Depends(require_scope("visit"))):
+    """List all prompt versions for the agent, newest first."""
     db = _get_db()
     try:
         rows = db.execute(
@@ -59,6 +61,7 @@ def list_versions(agent_name: str, user=Depends(require_scope("visit"))):
 
 @router.post("/{agent_name}/rollback/{version_id}", tags=["Agent Prompts"])
 def rollback_prompt(agent_name: str, version_id: int, user=Depends(require_scope("visit"))):
+    """Restore a previous prompt version by creating a new version with its content."""
     db = _get_db()
     try:
         row = db.execute("SELECT content FROM prompt_versions WHERE agent_name=? AND version_id=?", (agent_name, version_id)).fetchone()
@@ -83,6 +86,7 @@ def diff_prompt(
     v2: int = Query(description="Second version ID"),
     user=Depends(require_scope("visit")),
 ):
+    """Return a unified diff between two prompt versions."""
     db = _get_db()
     try:
         row1 = db.execute("SELECT content FROM prompt_versions WHERE agent_name=? AND version_id=?", (agent_name, v1)).fetchone()

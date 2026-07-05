@@ -28,6 +28,7 @@ class Session:
         return (time.time() - self.last_active) > max_idle_minutes * 60
 
     def to_dict(self) -> dict:
+        """Serialize the session to a dictionary."""
         return {
             "session_id": self.session_id,
             "user_id": self.user_id,
@@ -45,11 +46,13 @@ class SessionManager:
         self._sessions: dict[str, Session] = {}
 
     def create_session(self, user_id: str, agent_key: str) -> str:
+        """Create a new session and return its ID."""
         session_id = str(uuid.uuid4())[:8]
         self._sessions[session_id] = Session(session_id, user_id, agent_key)
         return session_id
 
     def get_session(self, session_id: str) -> Session | None:
+        """Retrieve an active session by ID, or None."""
         session = self._sessions.get(session_id)
         if session is None:
             return None
@@ -59,11 +62,13 @@ class SessionManager:
         return session
 
     def close_session(self, session_id: str) -> None:
+        """Close the session with the given ID."""
         session = self._sessions.get(session_id)
         if session:
             session.close()
 
     def cleanup_expired(self, max_idle_minutes: int = 30) -> int:
+        """Mark idle active sessions as expired; return the count."""
         now = time.time()
         expired = [sid for sid, s in self._sessions.items() if s.status == "active" and (now - s.last_active) > max_idle_minutes * 60]
         for sid in expired:
@@ -71,4 +76,5 @@ class SessionManager:
         return len(expired)
 
     def active_count(self) -> int:
+        """Return the number of active sessions."""
         return sum(1 for s in self._sessions.values() if s.status == "active")

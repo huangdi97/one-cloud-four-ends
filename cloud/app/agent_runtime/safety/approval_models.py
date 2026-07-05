@@ -21,6 +21,7 @@ class ApprovalRequest:
         created_at: str | None = None,
         expires_at: str | None = None,
     ):
+        """Initialize an approval request with metadata."""
         self.request_id = request_id
         self.agent_name = agent_name
         self.action = action
@@ -44,6 +45,7 @@ class ApprovalRequest:
 
 class ApprovalRequestManager:
     def __init__(self, db):
+        """Initialize with database connection."""
         self._db = db
 
     def create_request(self, agent_name: str, action: str, detail: dict) -> ApprovalRequest:

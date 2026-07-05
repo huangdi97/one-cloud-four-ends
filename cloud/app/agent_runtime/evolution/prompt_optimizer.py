@@ -27,6 +27,7 @@ class PromptOptimizer:
     """
 
     def __init__(self, feedback_collector: FeedbackCollector, storage_path: str = DEFAULT_OPTIMIZER_PATH, llm_url: str = ""):
+        """Initialize prompt optimizer with feedback collector and A/B test storage."""
         self._feedback = feedback_collector
         self._path = Path(storage_path)
         self._lock = threading.Lock()

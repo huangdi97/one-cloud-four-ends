@@ -46,6 +46,7 @@ class AgentMessage:
 
     @classmethod
     def from_dict(cls, data: dict) -> "AgentMessage":
+        """从字典反序列化为 AgentMessage。"""
         msg = cls(
             source=data.get("source", ""),
             target=data.get("target", ""),
@@ -69,6 +70,7 @@ class AgentMessageBus:
         self._handlers: dict[str, list[Callable]] = {}
 
     def send(self, message: AgentMessage):
+        """发送消息到目标 Agent，含 L0 隔离检查。"""
         if is_quarantined(message.source):
             logger.warning("Blocked send from quarantined agent: %s", message.source)
             return

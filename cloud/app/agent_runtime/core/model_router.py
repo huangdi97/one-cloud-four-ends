@@ -58,9 +58,11 @@ class ModelRouter:
 
     @property
     def temperature(self) -> float:
+        """Return the temperature from the preference, defaulting to 0.7."""
         return self.preference.temperature if self.preference else 0.7
 
     def route(self, agent_key: str, task_complexity: str | TaskComplexity, budget_tokens: int | None = None) -> dict:
+        """Resolve task complexity into a model/tier/latency configuration dict."""
         task_complexity = _resolve_complexity(task_complexity)
         config = _COMPLEXITY_CONFIG.get(task_complexity)
         if not config:
@@ -76,6 +78,7 @@ class ModelRouter:
         }
 
     def build_request_body(self, messages: list[dict], route_config: dict | None = None) -> dict:
+        """Build the LLM request body with model and temperature from route config."""
         if route_config:
             model = route_config.get("model", "deepseek-v4-flash")
             temperature = route_config.get("temperature", 0.7)
@@ -89,6 +92,7 @@ class ModelRouter:
         }
 
     def call(self, messages: list[dict], route_config: dict | None = None) -> dict:
+        """Execute an LLM call with latency-budget and cost-based fallback logic."""
         body = self.build_request_body(messages, route_config)
         start = time.time()
         result = self._llm._raw_llm_call(body)

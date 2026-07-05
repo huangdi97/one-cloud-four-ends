@@ -1,3 +1,5 @@
+"""Evaluation pipeline runner with golden cases, reporting, and regression detection."""
+
 import glob
 import json
 import logging
@@ -35,6 +37,7 @@ class EvalResult:
 
 
 def load_golden_cases(base_dir: str = "golden_cases") -> dict[str, list[GoldenCase]]:
+    """Load golden test cases from JSON files grouped by agent_key."""
     grouped: dict[str, list[GoldenCase]] = {}
     pattern = os.path.join(base_dir, "*", "*.json")
     for filepath in sorted(glob.glob(pattern)):
@@ -64,18 +67,22 @@ class AgentEvalSuite:
         runner: Callable[[str, dict], dict[str, Any]] | None = None,
         persist_to_shared_state: bool = True,
     ):
+        """Initialize the evaluation suite with an optional runner."""
         self._cases: list[GoldenCase] = []
         self._runner = runner
         self._persist = persist_to_shared_state
         self._previous_report: dict[str, Any] = {}
 
     def register_case(self, case: GoldenCase) -> None:
+        """Register a single golden case for evaluation."""
         self._cases.append(case)
 
     def register_cases(self, cases: list[GoldenCase]) -> None:
+        """Register multiple golden cases for evaluation."""
         self._cases.extend(cases)
 
     def load_previous_report(self) -> None:
+        """Load the most recent evaluation report from shared state."""
         if not self._persist:
             return
         ss = get_shared_state()
@@ -84,6 +91,7 @@ class AgentEvalSuite:
             self._previous_report = entries[-1].value
 
     def run(self, eval_type: str = "accuracy") -> list[EvalResult]:
+        """Run the evaluation suite for the given eval_type."""
         if eval_type == "accuracy":
             return self._run_accuracy()
         elif eval_type == "latency":
@@ -187,6 +195,7 @@ class AgentEvalSuite:
         )
 
     def generate_report(self, results: list[EvalResult]) -> dict[str, Any]:
+        """Generate a human-readable report from evaluation results."""
         passed = [r for r in results if r.passed]
         failed = [r for r in results if not r.passed]
         total = len(results)

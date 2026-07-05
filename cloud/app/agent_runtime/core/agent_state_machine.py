@@ -1,3 +1,5 @@
+"""Manages agent lifecycle state transitions."""
+
 import logging
 
 from cloud.app.agent_runtime.core.shared_state import SharedStateEntry, get_shared_state
@@ -23,9 +25,11 @@ class AgentStateMachine:
 
     @property
     def state(self) -> str:
+        """Return the current lifecycle state of the agent."""
         return self._state
 
     def transition(self, target: str, agent_key: str = "", **kwargs) -> None:
+        """Validate and perform a state transition, writing the new state to shared storage."""
         if target not in _STATES:
             raise ValueError(f"Unknown state: {target}")
         if target not in _TRANSITIONS.get(self._state, set()):
@@ -46,6 +50,7 @@ class AgentStateMachine:
         logger.debug("Agent %s state: %s -> %s", agent_key, old_state, target)
 
     def reset(self, agent_key: str = "") -> None:
+        """Reset the state machine to IDLE and persist the change."""
         self._state = "IDLE"
         ss = get_shared_state()
         entry = SharedStateEntry(

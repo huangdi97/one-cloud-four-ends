@@ -39,7 +39,7 @@ class AgentScheduler:
         self._thread = None
 
     def start(self):
-        """start."""
+        """Start the scheduler background thread and schedule all registered agents."""
         self._queue.recover()
         self._running = True
         self._thread = threading.Thread(target=self._run_loop, daemon=True)
@@ -54,16 +54,16 @@ class AgentScheduler:
                     self.schedule_agent(agent.identity.key, 3600, f"执行 {agent.identity.role}")
 
     def stop(self):
-        """stop."""
+        """Stop the scheduler background thread."""
         self._running = False
 
     def schedule_agent(self, agent_key: str, interval_seconds: int, goal: str):
-        """schedule agent."""
+        """Enqueue an agent task for execution after the specified interval."""
         scheduled_at = (datetime.now() + timedelta(seconds=interval_seconds)).isoformat()
         self._queue.enqueue(agent_key, goal, scheduled_at)
 
     def trigger_now(self, agent_key: str, goal: str, auth_header: str) -> RuntimeResult:
-        """trigger now."""
+        """Immediately execute an agent task with the given goal and auth."""
         runtime = self._runtime_factory() if self._runtime_factory else RuntimeCore(self._db, self._db, auth_header, agent_key)
         return runtime.execute(goal, agent_key)
 

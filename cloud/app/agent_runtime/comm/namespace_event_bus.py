@@ -28,6 +28,7 @@ class NamespaceEventBus:
         logger.info("NamespaceEventBus started")
 
     def stop(self) -> None:
+        """停止监听事件总线。"""
         self._running = False
 
     def _on_namespace_change(self, entry: SharedStateEntry) -> None:
@@ -70,6 +71,7 @@ _bus_lock = threading.Lock()
 
 
 def get_namespace_event_bus(db=None) -> NamespaceEventBus:
+    """获取全局 NamespaceEventBus 单例。"""
     global _namespace_event_bus
     if _namespace_event_bus is None:
         with _bus_lock:

@@ -29,9 +29,11 @@ class RedisBackend:
 
     @property
     def available(self) -> bool:
+        """检查 Redis 后端是否可用。"""
         return self._redis is not None
 
     def get(self, key: str) -> Any | None:
+        """从后端获取键对应的值，支持 TTL 过期。"""
         if self._redis:
             val = self._redis.get(key)
             if val is None:
@@ -51,6 +53,7 @@ class RedisBackend:
             return value
 
     def set(self, key: str, value: Any, ttl: int | None = None) -> None:
+        """写入键值对到后端，可选 TTL。"""
         if self._redis:
             serialized = json.dumps(value, ensure_ascii=False, default=str)
             if ttl:
@@ -63,6 +66,7 @@ class RedisBackend:
             self._in_memory[key] = (value, expires_at)
 
     def delete(self, key: str) -> None:
+        """从后端删除键值对。"""
         if self._redis:
             self._redis.delete(key)
             return

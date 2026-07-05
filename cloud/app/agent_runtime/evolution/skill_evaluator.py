@@ -26,6 +26,7 @@ class SkillEvaluator:
     """
 
     def __init__(self, skill_library: SkillLibrary, feedback_collector: FeedbackCollector, storage_path: str = DEFAULT_EVAL_PATH):
+        """Initialize skill evaluator with skill library and feedback collector."""
         self._skill_library = skill_library
         self._feedback_collector = feedback_collector
         self._path = Path(storage_path)

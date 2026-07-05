@@ -32,6 +32,7 @@ class CanaryDeployment:
     """灰度发布管理器 — 按 user_id hash 分流至 A/B 版本，劣化时自动回滚。"""
 
     def __init__(self, config: CanaryConfig | None = None):
+        """Initialize the canary deployment manager."""
         self._config = config or CanaryConfig(name="default")
         self._ss = get_shared_state()
         self._lock = threading.Lock()
@@ -40,15 +41,18 @@ class CanaryDeployment:
 
     @property
     def config(self) -> CanaryConfig:
+        """Return the current canary configuration."""
         return self._config
 
     def get_version_for_user(self, user_id: str) -> str:
+        """Return the version (A or B) for the given user based on hash."""
         user_hash = self._hash_user(user_id)
         if user_hash < self._config.rollout_percentage:
             return self._config.b_version
         return self._config.a_version
 
     def set_rollout(self, percentage: float) -> None:
+        """Set the rollout percentage for the canary version."""
         if not (0.0 <= percentage <= 1.0):
             raise ValueError(f"rollout_percentage must be between 0.0 and 1.0, got {percentage}")
         with self._lock:
@@ -58,17 +62,20 @@ class CanaryDeployment:
         logger.info("CanaryDeployment: rollout changed %.0f%% -> %.0f%%", old * 100, percentage * 100)
 
     def promote_to_full(self) -> None:
+        """Promote the canary version to 100% rollout."""
         self.set_rollout(1.0)
         self._write_status("promoted", {"version": self._config.b_version})
         logger.info("CanaryDeployment: %s promoted to 100%%", self._config.b_version)
 
     def record_metric(self, version: str, metric_name: str, value: float) -> None:
+        """Record a metric for the given version."""
         with self._lock:
             self._metrics.setdefault(version, []).append(
                 {"name": metric_name, "value": value, "timestamp": datetime.now().isoformat()},
             )
 
     def evaluate_health(self) -> dict[str, Any]:
+        """Evaluate the health of both versions and auto-rollback if degraded."""
         now = datetime.utcnow()
         result: dict[str, Any] = {
             "healthy": True,
@@ -108,6 +115,7 @@ class CanaryDeployment:
         return result
 
     def register_rollback_hook(self, hook: Callable) -> None:
+        """Register a callback to be invoked on auto-rollback."""
         with self._lock:
             self._rollback_hooks.append(hook)
 
@@ -161,6 +169,7 @@ class CanaryDeployment:
         )
 
     def get_status(self) -> dict[str, Any]:
+        """Return the current deployment status and recent events."""
         entries = self._ss.read(DEPLOYMENT_NAMESPACE, key=self._config.name)
         if not entries:
             return {
@@ -187,6 +196,7 @@ def create_canary_deployment(
     a_version: str = "stable",
     b_version: str = "canary",
 ) -> CanaryDeployment:
+    """Create and return a new canary deployment with the given configuration."""
     config = CanaryConfig(
         name=name,
         rollout_percentage=rollout_percentage,

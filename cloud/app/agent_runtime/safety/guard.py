@@ -37,10 +37,12 @@ class Guard:
     """Runtime guard facade for output sanitization and Layer 1 risk checks."""
 
     def __init__(self):
+        """Initialize guard with Layer 1 filter."""
         self._layer1 = GuardLayer1()
 
     @staticmethod
     def sanitize(text: str, max_length: int = 2000) -> str:
+        """Sanitize tool output text."""
         return sanitize_tool_output(text, max_length)
 
     def predict(self, text: str) -> dict:

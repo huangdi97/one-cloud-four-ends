@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 def require_compliance_approval(agent_output: dict, rules_checked: list, risk_level: str) -> tuple[bool, str, str]:
+    """Return approval decision based on risk level."""
     if risk_level == "high":
         return (False, "Requires human review", "pending")
     elif risk_level == "medium":

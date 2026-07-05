@@ -17,6 +17,7 @@ class DeadLetterEntry:
         self.error_category = error_category
 
     def to_dict(self) -> dict[str, Any]:
+        """Serialize the entry to a dictionary."""
         return {
             "agent_key": self.agent_key,
             "input": self.input,
@@ -28,6 +29,7 @@ class DeadLetterEntry:
 
     @classmethod
     def from_dict(cls, d: dict[str, Any]) -> "DeadLetterEntry":
+        """Deserialize a dictionary into a DeadLetterEntry."""
         return cls(
             agent_key=d["agent_key"],
             input_data=d["input"],
@@ -43,16 +45,19 @@ class DeadLetterQueue:
         self._entries: list[DeadLetterEntry] = []
 
     def push(self, entry: dict[str, Any] | DeadLetterEntry) -> None:
+        """Push an entry onto the dead letter queue."""
         if isinstance(entry, dict):
             entry = DeadLetterEntry.from_dict(entry)
         self._entries.append(entry)
 
     def pop_all(self) -> list[dict[str, Any]]:
+        """Pop and return all entries as dictionaries."""
         result = [e.to_dict() for e in self._entries]
         self._entries.clear()
         return result
 
     def retry(self, entry: dict[str, Any] | DeadLetterEntry, max_retries: int = 3) -> bool:
+        """Increment retry count for an entry if under the max."""
         if isinstance(entry, dict):
             entry = DeadLetterEntry.from_dict(entry)
         if entry.retry_count >= max_retries:
@@ -61,6 +66,7 @@ class DeadLetterQueue:
         return True
 
     def replay_all(self, max_retries: int = 3) -> list[dict[str, Any]]:
+        """Replay all entries, retrying each up to max_retries."""
         results = []
         for entry in self._entries:
             ok = self.retry(entry, max_retries)
@@ -68,6 +74,7 @@ class DeadLetterQueue:
         return results
 
     def replay_by_error_type(self, error_type: str, max_retries: int = 3) -> list[dict[str, Any]]:
+        """Replay entries matching a specific error category."""
         results = []
         for entry in self._entries:
             if entry.error_category == error_type:
@@ -76,6 +83,7 @@ class DeadLetterQueue:
         return results
 
     def get_stats(self) -> dict[str, Any]:
+        """Return summary statistics for all entries."""
         categories = Counter(e.error_category for e in self._entries)
         return {
             "total": len(self._entries),

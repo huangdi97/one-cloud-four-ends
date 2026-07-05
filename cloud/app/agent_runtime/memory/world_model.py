@@ -40,6 +40,7 @@ class WorldModelLoop:
         logger.info("WorldModelLoop started")
 
     def stop(self) -> None:
+        """停止后台循环线程。"""
         self._running = False
 
     def _on_namespace_change(self, entry: SharedStateEntry) -> None:
@@ -226,6 +227,7 @@ _wm_lock = threading.Lock()
 
 
 def get_world_model() -> WorldModelLoop:
+    """获取全局 WorldModelLoop 单例。"""
     global _global_world_model
     if _global_world_model is None:
         with _wm_lock:

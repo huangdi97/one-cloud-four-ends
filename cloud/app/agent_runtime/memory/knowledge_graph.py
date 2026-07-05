@@ -148,6 +148,7 @@ class ComplianceGraph:
         return results
 
     def clear(self) -> None:
+        """清空图谱和实体列表。"""
         self._graph = None
         self._entities = []
         self._relationships = []

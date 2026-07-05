@@ -48,6 +48,7 @@ class ExecutionEngine:
 
     @property
     def orchestrator(self) -> OrchestratedExecution | None:
+        """Return the orchestrated execution instance, if enabled."""
         return self._orchestrated
 
     def _signal_handler(self, sig, frame):
@@ -268,6 +269,7 @@ class ExecutionEngine:
         return self._host._tool_exec._handle_max_iterations(c, max_iter)
 
     def execute(self, goal: str, agent_key: str, context: dict | None = None) -> RuntimeResult:
+        """Execute an agent goal with full lifecycle: LLM calls, tools, failover, and degradation."""
         start_ts = time.time()
         degradation_log = None
         try:

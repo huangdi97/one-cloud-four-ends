@@ -17,30 +17,37 @@ class TraceContext:
 
     @staticmethod
     def get_trace_id() -> str | None:
+        """获取当前上下文的 trace_id。"""
         return _trace_id.get()
 
     @staticmethod
     def set_trace_id(tid: str | None) -> None:
+        """设置当前上下文的 trace_id。"""
         _trace_id.set(tid)
 
     @staticmethod
     def get_parent_span_id() -> str | None:
+        """获取当前上下文的 parent_span_id。"""
         return _parent_span_id.get()
 
     @staticmethod
     def set_parent_span_id(sid: str | None) -> None:
+        """设置当前上下文的 parent_span_id。"""
         _parent_span_id.set(sid)
 
     @staticmethod
     def new_trace_id() -> str:
+        """生成新的 trace_id。"""
         return uuid.uuid4().hex[:16]
 
     @staticmethod
     def new_span_id() -> str:
+        """生成新的 span_id。"""
         return uuid.uuid4().hex[:16]
 
     @staticmethod
     def reset() -> None:
+        """重置当前上下文的 trace_id 和 parent_span_id。"""
         _trace_id.set(None)
         _parent_span_id.set(None)
 

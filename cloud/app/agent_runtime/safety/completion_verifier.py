@@ -1,3 +1,5 @@
+"""Verifies completion conditions with retry logic for unmet conditions."""
+
 import json
 import logging
 

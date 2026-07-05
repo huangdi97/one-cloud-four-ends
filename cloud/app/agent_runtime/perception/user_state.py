@@ -43,6 +43,7 @@ class UserStatePerceiver:
     """
 
     def __init__(self, storage_path: str = DEFAULT_STATE_PATH, window_size: int = 50):
+        """Initialize perceiver with a sliding signal window and persistence."""
         self._path = Path(storage_path)
         self._lock = threading.Lock()
         self._window: dict[str, deque[SignalSample]] = {

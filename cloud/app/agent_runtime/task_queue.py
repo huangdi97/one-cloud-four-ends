@@ -37,6 +37,7 @@ class AgentTask:
 
 class AgentTaskQueue:
     def __init__(self, max_workers: int = 4):
+        """Initialize the task queue with optional Redis backend."""
         self._tasks: dict[str, AgentTask] = {}
         self._lock = threading.Lock()
         self._executor = ThreadPoolExecutor(max_workers=max_workers)
@@ -96,6 +97,7 @@ class AgentTaskQueue:
             self._tasks[task.task_id] = task
 
     def submit(self, goal: str, agent_key: str, context: dict | None = None) -> str:
+        """Submit a new agent task and return its ID."""
         task_id = str(uuid.uuid4())
         task = AgentTask(task_id=task_id, goal=goal, agent_key=agent_key, context=context)
         self._update_task(task)
@@ -114,6 +116,7 @@ class AgentTaskQueue:
         return task_id
 
     def get_result(self, task_id: str) -> dict | None:
+        """Get the result of a previously submitted task."""
         task = self._get_task(task_id)
         if not task:
             return None
@@ -127,6 +130,7 @@ class AgentTaskQueue:
         }
 
     def list_tasks(self, limit: int = 20) -> list[dict]:
+        """List recent tasks, up to the given limit."""
         if self._redis:
             keys = self._redis.keys("agent_task:*")
             tasks = []
@@ -158,6 +162,7 @@ class AgentTaskQueue:
             ]
 
     def shutdown(self, timeout: float = 30.0) -> None:
+        """Shut down the task queue executor."""
         self._executor.shutdown(wait=True, timeout=timeout)
         logger.info("AgentTaskQueue: shut down")
 
@@ -167,6 +172,7 @@ _queue_lock = threading.Lock()
 
 
 def get_task_queue() -> AgentTaskQueue:
+    """Get or create the global singleton task queue."""
     global _global_queue
     if _global_queue is None:
         with _queue_lock:

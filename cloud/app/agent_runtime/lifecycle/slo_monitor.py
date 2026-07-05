@@ -18,6 +18,7 @@ class SLOConfig:
     uptime: float = 0.995
 
     def to_dict(self) -> dict:
+        """Return SLO config as a plain dictionary."""
         return {
             "latency_p99_ms": self.latency_p99_ms,
             "error_rate": self.error_rate,

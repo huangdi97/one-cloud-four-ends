@@ -63,6 +63,7 @@ class SecretManager:
     """密钥管理器。当前基于加密的 SQLite 存储，未来可对接 Vault/AWS Secrets Manager。"""
 
     def __init__(self, db_path: str = ""):
+        """Initialize secret manager with encrypted SQLite storage."""
         self._storage_key = _get_storage_key()
         self._local_db = None
         self._external_db = None
@@ -126,9 +127,11 @@ class SecretManager:
         return blob.decode("utf-8")
 
     def encrypt(self, plaintext: str) -> bytes:
+        """Encrypt plaintext using AES-GCM or plaintext fallback."""
         return self._encrypt(plaintext)
 
     def decrypt(self, blob: bytes) -> str:
+        """Decrypt a blob previously encrypted by encrypt()."""
         return self._decrypt(blob)
 
     def set(self, key_name: str, value: str):
@@ -168,7 +171,7 @@ class SecretManager:
         return [r["key_name"] for r in rows]
 
     def rotate(self, key_name: str, new_value: str):
-        """轮换密钥值。"""
+        """Rotate a secret to a new value."""
         self.set(key_name, new_value)
 
     def delete(self, key_name: str):

@@ -12,11 +12,13 @@ DEFAULT_TIMEOUT_SECONDS = 3600
 
 class ApprovalQueue:
     def __init__(self, timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS):
+        """Initialize an empty approval queue with the given timeout."""
         self._timeout = timeout_seconds
         self._lock = threading.Lock()
         self._items: dict[str, dict] = {}
 
     def submit(self, requester: str, action: str, context: dict | None = None) -> str:
+        """Submit a new approval request and return its ID."""
         item_id = uuid.uuid4().hex[:12]
         item = {
             "id": item_id,
@@ -34,6 +36,7 @@ class ApprovalQueue:
         return item_id
 
     def approve(self, item_id: str, approver: str) -> bool:
+        """Approve a pending approval request. Returns True on success."""
         with self._lock:
             item = self._items.get(item_id)
             if not item or item["status"] != "pending":
@@ -48,6 +51,7 @@ class ApprovalQueue:
         return True
 
     def reject(self, item_id: str, approver: str) -> bool:
+        """Reject a pending approval request. Returns True on success."""
         with self._lock:
             item = self._items.get(item_id)
             if not item or item["status"] != "pending":
@@ -62,11 +66,13 @@ class ApprovalQueue:
         return True
 
     def get_pending(self) -> list[dict]:
+        """Return all pending (non-expired) approval items."""
         self._purge_expired()
         with self._lock:
             return [v for v in self._items.values() if v["status"] == "pending"]
 
     def get_by_id(self, item_id: str) -> dict | None:
+        """Get an approval item by its ID, or None if not found."""
         with self._lock:
             item = self._items.get(item_id)
             if item and self._is_expired(item):

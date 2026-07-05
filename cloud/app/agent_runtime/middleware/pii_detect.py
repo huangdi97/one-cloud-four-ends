@@ -15,6 +15,7 @@ class PIIDetectMiddleware(Middleware):
     name = "pii_detect"
 
     def before_execute(self, goal: str, agent_key: str, context: dict | None) -> dict | None:
+        """Redact PII from context before agent execution."""
         if context:
             redacted = {}
             for k, v in context.items():
@@ -26,6 +27,7 @@ class PIIDetectMiddleware(Middleware):
         return context
 
     def after_execute(self, goal: str, agent_key: str, result: dict[str, Any]) -> dict[str, Any] | None:
+        """Redact PII from agent output after execution."""
         content = result.get("result", "")
         if isinstance(content, str):
             redacted_result = redact(content)

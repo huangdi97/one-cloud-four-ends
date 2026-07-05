@@ -36,7 +36,7 @@ class VectorMemory:
         return self._local_db
 
     def set_db(self, db):
-        """设置外部数据库连接。"""
+        """设置外部数据库连接覆盖默认路径。"""
         self._external_db = db
         self._ensure_table()
 

@@ -31,6 +31,7 @@ class ScoredMemory:
         self._vector = vector_memory or VectorMemory()
 
     def remember(self, content: str, scope: str | None = None) -> str:
+        """记忆一条内容，自动推断 scope 和 importance。"""
         resolved_scope = scope or self._infer_scope(content)
         importance = self._infer_importance(content)
         entry = MemoryEntry(
@@ -45,6 +46,7 @@ class ScoredMemory:
         return resolved_scope
 
     def recall(self, query: str, top_k: int = 5) -> list[dict[str, Any]]:
+        """按组合评分召回最相关的记忆。"""
         query_emb = self._embed(query)
         now = time.time()
         age_range = max(now - min((e.timestamp for e in self._entries), default=now), 1.0)
@@ -61,18 +63,21 @@ class ScoredMemory:
         return [{"content": e.content, "scope": e.scope, "importance": e.importance, "score": round(s, 4)} for s, e in scored[:top_k]]
 
     def tree(self) -> dict[str, int]:
+        """返回 scope 分布统计树。"""
         scope_counts: dict[str, int] = defaultdict(int)
         for e in self._entries:
             scope_counts[e.scope] += 1
         return dict(sorted(scope_counts.items()))
 
     def forget(self, scope: str, threshold: float = 0.3) -> int:
+        """删除指定 scope 中低于重要性阈值的记忆。"""
         before = len(self._entries)
         self._entries = [e for e in self._entries if not (e.scope == scope and e.importance < threshold)]
         self._short_term = [e for e in self._short_term if not (e.scope == scope and e.importance < threshold)]
         return before - len(self._entries)
 
     def consolidate(self) -> dict[str, int]:
+        """将高重要性短期记忆提升到长期存储。"""
         promoted = 0
         for e in list(self._short_term):
             if e.importance >= 0.7:

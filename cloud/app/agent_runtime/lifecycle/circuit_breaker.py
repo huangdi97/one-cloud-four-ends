@@ -32,7 +32,7 @@ class CircuitBreaker:
         self.last_failure_time = 0.0
 
     def call(self, fn, *args, **kwargs):
-        """call."""
+        """Execute fn with circuit breaker protection, raising CircuitBreakerOpenError if open."""
         if self.state == CircuitState.OPEN:
             elapsed = time.time() - self.last_failure_time
             remaining = max(0.0, self.recovery_timeout - elapsed)
@@ -55,14 +55,14 @@ class CircuitBreaker:
             raise
 
     def on_success(self):
-        """on success."""
+        """Reset circuit breaker to closed state after a successful call."""
         self.state = CircuitState.CLOSED
         self.failure_count = 0
         self.last_failure_time = 0.0
         logger.info("Circuit breaker closed after successful call")
 
     def on_failure(self):
-        """on failure."""
+        """Increment failure count and open circuit if threshold exceeded."""
         self.failure_count += 1
         self.last_failure_time = time.time()
         logger.warning("Circuit breaker failure %d/%d", self.failure_count, self.failure_threshold)
@@ -71,7 +71,7 @@ class CircuitBreaker:
             logger.error("Circuit breaker opened after %d failures", self.failure_count)
 
     def reset(self):
-        """reset."""
+        """Manually reset circuit breaker to closed state."""
         self.state = CircuitState.CLOSED
         self.failure_count = 0
         self.last_failure_time = 0.0
