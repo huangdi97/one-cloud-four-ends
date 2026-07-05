@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends, File, UploadFile
 from pydantic import BaseModel, Field
 
-from cloud.app.services.hcp_mdm_service import dedup_check, get_hcp_profile, get_unified_profile, import_hcp_csv, merge_duplicates
+from cloud.app.services.rep_workbench.hcp_mdm_service import dedup_check, get_hcp_profile, get_unified_profile, import_hcp_csv, merge_duplicates
 from shared.auth_scope import require_scope
 from shared.base import success
 

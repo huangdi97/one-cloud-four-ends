@@ -1,9 +1,9 @@
 import json
 from unittest.mock import MagicMock, patch
 
-from cloud.app.services.feature_classifier import causal_attribution
-from cloud.app.services.feature_extractor import extract_time_series
-from cloud.app.services.research_trajectory_service import ResearchTrajectoryService
+from cloud.app.services.brain.feature_classifier import causal_attribution
+from cloud.app.services.brain.feature_extractor import extract_time_series
+from cloud.app.services.intel.research_trajectory_service import ResearchTrajectoryService
 
 
 class TestResearchTrajectory:

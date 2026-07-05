@@ -6,11 +6,11 @@ from datetime import datetime
 
 from cloud.app.repositories.sage_repository import SageRepository
 from cloud.app.research_database import get_research_db
-from cloud.app.services.brain_evolution_service import BrainEvolutionService
-from cloud.app.services.brain_memory_service import BrainMemoryService
-from cloud.app.services.memory_consolidation_service import MemoryConsolidationService
-from cloud.app.services.sage_linking import SageLinkingService
-from cloud.app.services.sage_scoring import (
+from cloud.app.services.brain.brain_evolution_service import BrainEvolutionService
+from cloud.app.services.brain.brain_memory_service import BrainMemoryService
+from cloud.app.services.brain.memory_consolidation_service import MemoryConsolidationService
+from cloud.app.services.brain.sage_linking import SageLinkingService
+from cloud.app.services.brain.sage_scoring import (
     SageScoringMixin,
 )
 

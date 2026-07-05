@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, patch
 
-from cloud.app.services.sage_engine_service import SageEngineService
-from cloud.app.services.sage_linking import _extract_common_area
+from cloud.app.services.brain.sage_engine_service import SageEngineService
+from cloud.app.services.brain.sage_linking import _extract_common_area
 
 
 class TestSageEngine:

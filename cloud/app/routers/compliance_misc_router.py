@@ -7,10 +7,10 @@ from pydantic import BaseModel
 from starlette import status
 
 from cloud.app.database import get_db
-from cloud.app.services.audit_service import AuditService
-from cloud.app.services.diversion_service import DiversionDetectionService
-from cloud.app.services.holographic_service import HolographicService
-from cloud.app.services.trust_audit_service import TrustAuditService
+from cloud.app.services.compliance_svc.audit_service import AuditService
+from cloud.app.services.compliance_svc.diversion_service import DiversionDetectionService
+from cloud.app.services.compliance_svc.holographic_service import HolographicService
+from cloud.app.services.compliance_svc.trust_audit_service import TrustAuditService
 from shared.auth_scope import require_scope
 from shared.base import success
 

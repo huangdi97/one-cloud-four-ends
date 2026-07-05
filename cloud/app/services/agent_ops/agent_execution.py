@@ -76,6 +76,6 @@ class AgentExecutionMixin:
         Returns:
             A2aRegistryService 实例。
         """
-        from cloud.app.services.a2a_registry_service import A2aRegistryService
+        from cloud.app.services.agent_ops.a2a_registry_service import A2aRegistryService
 
         return A2aRegistryService(db=self.db)

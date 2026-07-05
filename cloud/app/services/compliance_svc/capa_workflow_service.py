@@ -6,10 +6,9 @@ from fastapi import HTTPException
 from starlette import status
 
 from cloud.app.schemas.flying_inspection import InspectionTask, TaskStatus
-from cloud.app.services.flying_inspection_calculation import compute_dashboard
+from cloud.app.services.platform_svc._flying_inspection_data import AUDIT_TRAILS, CHECKLIST, DEFAULT_INSPECTION_ID, HISTORY, TASKS
+from cloud.app.services.platform_svc.flying_inspection_calculation import compute_dashboard
 from shared.datetime_utils import now as _now
-
-from ._flying_inspection_data import AUDIT_TRAILS, CHECKLIST, DEFAULT_INSPECTION_ID, HISTORY, TASKS
 
 
 def _add_audit_log(inspection_id: str, stage: str, who: str, what: str, evidence: str) -> dict:

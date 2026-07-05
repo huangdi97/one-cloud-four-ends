@@ -5,7 +5,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 
-from cloud.app.services.pi_service import PiService
+from cloud.app.services.intel.pi_service import PiService
 from shared.auth_scope import require_scope
 from shared.base import success
 

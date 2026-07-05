@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from cloud.app.services.hcp_scoring_service import calculate_score
+from cloud.app.services.rep_workbench.hcp_scoring_service import calculate_score
 from shared.base import success
 
 router = APIRouter(prefix="/api/hcp", tags=["HCP评分"])

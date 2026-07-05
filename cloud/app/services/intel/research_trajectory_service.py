@@ -7,10 +7,10 @@ from fastapi import HTTPException
 from starlette import status
 
 from cloud.app.research_database import get_research_db
-from cloud.app.services.feature_analyzer import run_prediction_fallback
-from cloud.app.services.feature_classifier import causal_attribution
-from cloud.app.services.feature_extractor import extract_time_series
-from cloud.app.services.research_trajectory_stats import ResearchTrajectoryStatsMixin
+from cloud.app.services.brain.feature_analyzer import run_prediction_fallback
+from cloud.app.services.brain.feature_classifier import causal_attribution
+from cloud.app.services.brain.feature_extractor import extract_time_series
+from cloud.app.services.intel.research_trajectory_stats import ResearchTrajectoryStatsMixin
 
 
 class ResearchTrajectoryService(ResearchTrajectoryStatsMixin):
@@ -156,7 +156,7 @@ class ResearchTrajectoryService(ResearchTrajectoryStatsMixin):
         Returns:
             预测结果字典，若 LLM 未返回有效预测则返回 None。
         """
-        from cloud.app.services.research_trajectory_ai import build_prediction_prompt, call_llm_for_prediction
+        from cloud.app.services.intel.research_trajectory_ai import build_prediction_prompt, call_llm_for_prediction
 
         prompt = build_prediction_prompt(pi_info, features, horizon_days)
         result = call_llm_for_prediction(prompt)

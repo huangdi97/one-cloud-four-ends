@@ -3,7 +3,7 @@
 import logging
 from datetime import datetime, timezone
 
-from cloud.app.services.remediation_service import RemediationService
+from cloud.app.services.compliance_svc.remediation_service import RemediationService
 
 logger = logging.getLogger(__name__)
 

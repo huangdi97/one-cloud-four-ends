@@ -4,7 +4,7 @@ from typing import Optional
 
 from fastapi import Depends
 
-from cloud.app.services.soap_decision_service import SoapDecisionService
+from cloud.app.services.rep_workbench.soap_decision_service import SoapDecisionService
 from cloud.app.soap_validator import TemplateCreate
 from shared.auth_scope import require_scope
 from shared.base import success

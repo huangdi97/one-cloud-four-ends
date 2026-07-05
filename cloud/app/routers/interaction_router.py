@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.interaction_service import InteractionService
+from cloud.app.services.rep_workbench.interaction_service import InteractionService
 from shared.auth_scope import require_scope
 from shared.base import success
 

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, File, UploadFile
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.asr_service import AsrService
+from cloud.app.services.platform_svc.asr_service import AsrService
 from shared.auth_scope import require_scope
 from shared.base import success
 

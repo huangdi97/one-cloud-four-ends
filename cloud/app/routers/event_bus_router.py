@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from starlette import status
 
 from cloud.app.event_bus_handlers import EventDefCreate, EventPublish, EventSubscribe
-from cloud.app.services.event_bus_service import EventBusService
+from cloud.app.services.platform_svc.event_bus_service import EventBusService
 from shared.auth_scope import require_scope
 from shared.base import success
 
@@ -122,7 +122,7 @@ def messages_publish(
     )
     # EDAC: trigger subscribing agents
     try:
-        from cloud.app.services.agent_event_bridge import on_event_published
+        from cloud.app.services.agent_ops.agent_event_bridge import on_event_published
 
         on_event_published(body.event_type, body.payload)
     except Exception:

@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
-from cloud.app.services.settings_service import SettingsService
+from cloud.app.services.rep_workbench.settings_service import SettingsService
 from shared.auth_scope import require_scope
 from shared.base import success
 

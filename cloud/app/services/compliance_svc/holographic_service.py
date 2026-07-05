@@ -8,7 +8,7 @@ from starlette import status
 
 from cloud.app.repositories.holographic_repository import MemoryAssociationsRepository
 from cloud.app.repositories.memory_entry_repo import MemoryEntriesRepository
-from cloud.app.services.holographic_association import _n404
+from cloud.app.services.compliance_svc.holographic_association import _n404
 from shared.base_service import BaseService
 from shared.datetime_utils import now as _now
 

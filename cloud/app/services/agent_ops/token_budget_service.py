@@ -12,7 +12,7 @@ from datetime import datetime, timezone
 from typing import Optional
 
 from cloud.app.database import DB_PATH
-from cloud.app.services.budget_tracker import BudgetTracker
+from cloud.app.services.platform_svc.budget_tracker import BudgetTracker
 
 _RULES_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
@@ -184,7 +184,7 @@ class TokenBudgetService(TokenEstimatorMixin, BudgetTracker):
         Raises:
             sqlite3.Error: 当token budget数据库查询失败时抛出。
         """
-        from cloud.app.services.budget_tracker import _connect
+        from cloud.app.services.platform_svc.budget_tracker import _connect
 
         conn = _connect()
         try:

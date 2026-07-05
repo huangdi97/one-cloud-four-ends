@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.visit_service import VisitService
+from cloud.app.services.rep_workbench.visit_service import VisitService
 from shared.auth_scope import require_scope
 from shared.base import success
 

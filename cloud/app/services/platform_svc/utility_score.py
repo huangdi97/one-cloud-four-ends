@@ -10,7 +10,7 @@ from cloud.app.repositories import (
     MemoryUtilityScoresRepository,
     NodeMemoryLinksRepository,
 )
-from cloud.app.services.utility_ranker import UtilityRankerMixin
+from cloud.app.services.platform_svc.utility_ranker import UtilityRankerMixin
 from shared.datetime_utils import now as _now
 
 

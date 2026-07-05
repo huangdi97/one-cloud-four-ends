@@ -3,8 +3,8 @@
 import json
 from typing import Optional
 
-from cloud.app.services.world_tree_query import WorldTreeQueryMixin
-from cloud.app.services.world_tree_search import (
+from cloud.app.services.brain.world_tree_query import WorldTreeQueryMixin
+from cloud.app.services.brain.world_tree_search import (
     _build,
     _get_repos,
     _n404,

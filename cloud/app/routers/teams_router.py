@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.team_service import TeamService
+from cloud.app.services.rep_workbench.team_service import TeamService
 from shared.auth_scope import require_scope
 from shared.base import success
 

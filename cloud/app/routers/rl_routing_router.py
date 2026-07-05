@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, Field
 from starlette import status
 
-from cloud.app.services.rl_routing_service import RLRoutingService
+from cloud.app.services.brain.rl_routing_service import RLRoutingService
 from shared.auth_scope import require_scope
 from shared.base import success
 

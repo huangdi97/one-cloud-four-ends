@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, File, Form, UploadFile
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.visit_extraction_service import (
+from cloud.app.services.rep_workbench.visit_extraction_service import (
     confirm_draft,
     delete_draft,
     generate_visit_draft,

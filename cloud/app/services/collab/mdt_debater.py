@@ -11,7 +11,7 @@ from cloud.app.repositories import (
     MdtParticipantsRepository,
     MdtSessionsRepository,
 )
-from cloud.app.services.mdt_debate_scorer import _call_ai, parse_ai_opinion, parse_consensus_json
+from cloud.app.services.collab.mdt_debate_scorer import _call_ai, parse_ai_opinion, parse_consensus_json
 from shared.base import success
 from shared.base_service import BaseService
 from shared.datetime_utils import now as _now

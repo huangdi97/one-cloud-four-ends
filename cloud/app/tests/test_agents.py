@@ -23,14 +23,14 @@ def _install_langgraph_stub():
 
 def test_agent_pipeline_service_imports():
     _install_langgraph_stub()
-    from cloud.app.services.agent_pipeline_service import AgentPipelineService
+    from cloud.app.services.agent_ops.agent_pipeline_service import AgentPipelineService
 
     assert AgentPipelineService is not None
 
 
 def test_agent_pipeline_service_imports_and_instantiates():
     _install_langgraph_stub()
-    from cloud.app.services.agent_pipeline_service import AgentPipelineService
+    from cloud.app.services.agent_ops.agent_pipeline_service import AgentPipelineService
 
     service = AgentPipelineService(db=None)
 

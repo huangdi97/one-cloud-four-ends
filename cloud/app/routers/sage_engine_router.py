@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, Depends
 
-from cloud.app.services.sage_engine_service import SageEngineService
+from cloud.app.services.brain.sage_engine_service import SageEngineService
 from shared.auth_scope import require_scope
 from shared.base import success
 

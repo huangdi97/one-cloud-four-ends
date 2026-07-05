@@ -6,7 +6,7 @@ import logging
 from fastapi import HTTPException
 from starlette import status
 
-from cloud.app.services.agent_execution import AgentExecutionMixin
+from cloud.app.services.agent_ops.agent_execution import AgentExecutionMixin
 from shared.base_service import BaseService
 from shared.datetime_utils import row_to_dict
 

@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.recommend_service import RecommendService
+from cloud.app.services.rep_workbench.recommend_service import RecommendService
 from shared.auth_scope import require_scope
 from shared.base import success
 

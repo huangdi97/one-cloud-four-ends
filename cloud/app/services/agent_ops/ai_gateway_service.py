@@ -9,7 +9,7 @@ import urllib.request
 from fastapi import HTTPException
 from starlette import status
 
-from cloud.app.services.token_budget_service import TokenBudgetService
+from cloud.app.services.agent_ops.token_budget_service import TokenBudgetService
 from shared.ai_gateway import TIMEOUT_SECONDS
 from shared.base_service import BaseService
 from shared.config import settings
@@ -84,7 +84,7 @@ class AiGatewayService(BaseService):
         """
         global _semantic_cache
         if _semantic_cache is None:
-            from cloud.app.services.semantic_cache_service import SemanticCache
+            from cloud.app.services.platform_svc.semantic_cache_service import SemanticCache
 
             _semantic_cache = SemanticCache()
 

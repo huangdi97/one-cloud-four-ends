@@ -5,7 +5,7 @@ from typing import Any
 from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel, Field
 
-from cloud.app.services.ai_gateway_service import AiGatewayService
+from cloud.app.services.agent_ops.ai_gateway_service import AiGatewayService
 from shared.auth_scope import require_scope
 from shared.base import ApiResponse, success
 

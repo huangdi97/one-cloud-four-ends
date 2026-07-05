@@ -13,7 +13,7 @@ from cloud.app.repositories import (
     MemoryEntriesRepository,
     MemoryGatesRepository,
 )
-from cloud.app.services.holographic_service import HolographicService
+from cloud.app.services.compliance_svc.holographic_service import HolographicService
 from shared.datetime_utils import now as _now
 
 logger = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ class MemoryEvaluatorService:
     def ai_gateway(self):
         """获取 AI 网关服务实例（惰性初始化）。"""
         if self._ai_gateway is None:
-            from cloud.app.services.ai_gateway_service import AiGatewayService
+            from cloud.app.services.agent_ops.ai_gateway_service import AiGatewayService
 
             self._ai_gateway = AiGatewayService(self.db)
         return self._ai_gateway

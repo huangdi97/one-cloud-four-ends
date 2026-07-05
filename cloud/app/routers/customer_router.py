@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, Field
 from starlette import status
 
-from cloud.app.services.customer_service import CustomerService
+from cloud.app.services.rep_workbench.customer_service import CustomerService
 from shared.auth_scope import require_scope
 from shared.base import success
 

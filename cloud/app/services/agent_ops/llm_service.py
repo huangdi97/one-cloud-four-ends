@@ -5,8 +5,8 @@ from __future__ import annotations
 import logging
 
 from cloud.app.config.provider_config import ProviderMode, ProviderSettings
-from cloud.app.services.base_provider import BaseLLM
-from cloud.app.services.local_providers import LocalLLM
+from cloud.app.services.agent_ops.base_provider import BaseLLM
+from cloud.app.services.platform_svc.local_providers import LocalLLM
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ class _NoFallbackApiLLM(BaseLLM):
     """ApiLLM wrapper that never falls back — raises on failure."""
 
     def __init__(self, settings: ProviderSettings) -> None:
-        from cloud.app.services.api_providers import ApiLLM
+        from cloud.app.services.agent_ops.api_providers import ApiLLM
 
         self._inner = ApiLLM(settings)
 
@@ -53,7 +53,7 @@ class LlmService:
         if not self._settings.enabled:
             return LocalLLM(self._settings)
         if self._settings.mode == ProviderMode.API:
-            from cloud.app.services.api_providers import ApiLLM
+            from cloud.app.services.agent_ops.api_providers import ApiLLM
 
             if self._fallback_to_local:
                 return ApiLLM(self._settings)

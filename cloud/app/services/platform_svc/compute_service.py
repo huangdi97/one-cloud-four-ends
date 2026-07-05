@@ -12,7 +12,7 @@ from starlette import status
 from cloud.app.repositories import (
     PrivacyComputeJobsRepository,
 )
-from cloud.app.services.compute_scheduler import ComputeSchedulerMixin
+from cloud.app.services.platform_svc.compute_scheduler import ComputeSchedulerMixin
 from shared.base_service import BaseService
 
 SCHEME_MAP = {

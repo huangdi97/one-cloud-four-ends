@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from cloud.app.services.model_compression_service import COMPRESSION_TYPES, ModelCompressionService
+from cloud.app.services.platform_svc.model_compression_service import COMPRESSION_TYPES, ModelCompressionService
 
 
 class TestModelCompression:

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 from .hypothesizer import Hypothesis, Hypothesizer
 
@@ -32,7 +32,7 @@ class HypothesisVerifier:
     def __init__(
         self,
         tool_runner: ToolRunner | None = None,
-        hypothesizer: Hypothesizer | None = None,
+        hypothesizer: Optional[Hypothesizer] = None,
         confidence_threshold: float = 0.8,
         max_rounds: int = 3,
     ):

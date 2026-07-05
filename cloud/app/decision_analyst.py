@@ -2,7 +2,7 @@
 
 from typing import Optional
 
-from cloud.app.services.decision_intel_service import DecisionIntelService
+from cloud.app.services.compliance_svc.decision_intel_service import DecisionIntelService
 from shared.base import PaginatedResponse, success
 
 

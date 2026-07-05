@@ -1,4 +1,4 @@
-from cloud.app.services.board_service import BoardService
+from cloud.app.services.platform_svc.board_service import BoardService
 
 
 class TestBoardService:

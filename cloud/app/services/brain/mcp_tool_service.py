@@ -10,7 +10,7 @@ from starlette import status
 
 from cloud.app.database import DB_PATH
 from cloud.app.repositories import McpToolsRepository
-from cloud.app.services.mcp_guard_service import McpGuardService
+from cloud.app.services.brain.mcp_guard_service import McpGuardService
 
 logger = logging.getLogger(__name__)
 

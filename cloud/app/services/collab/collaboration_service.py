@@ -10,7 +10,7 @@ from cloud.app.repositories import (
     CollaborationSessionsRepository,
     CollaborationStepsRepository,
 )
-from cloud.app.services.collaboration_session import CollaborationSessionMixin
+from cloud.app.services.collab.collaboration_session import CollaborationSessionMixin
 from shared.base_service import BaseService
 
 

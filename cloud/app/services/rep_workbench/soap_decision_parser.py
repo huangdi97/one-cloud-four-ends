@@ -7,7 +7,7 @@ from fastapi import HTTPException
 from starlette import status as http_status
 
 from cloud.app.repositories import SoapDecisionsRepository, SoapTemplatesRepository
-from cloud.app.services.soap_decision_validator import SoapDecisionValidatorMixin, _row
+from cloud.app.services.rep_workbench.soap_decision_validator import SoapDecisionValidatorMixin, _row
 from shared.base import PaginatedResponse, validate_columns
 from shared.columns import TABLE_SOAP_DECISIONS_COLS
 

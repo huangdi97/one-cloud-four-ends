@@ -11,8 +11,8 @@ from cloud.app.repositories import (
     HcpProfilesRepository,
     HcpSimulationsRepository,
 )
-from cloud.app.services.hcp_sandbox_sim import HcpSandboxSimMixin
-from cloud.app.services.hcp_simulation_core import _call_ai, build_simulation_record
+from cloud.app.services.rep_workbench.hcp_sandbox_sim import HcpSandboxSimMixin
+from cloud.app.services.rep_workbench.hcp_simulation_core import _call_ai, build_simulation_record
 from shared.base import PaginatedResponse, validate_columns
 from shared.base_service import BaseService
 from shared.columns import TABLE_HCP_PROFILES_COLS

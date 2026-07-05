@@ -12,9 +12,9 @@ from cloud.app.brain_orchestrator_handlers import (
     Orchestrate,
     SensoryIngest,
 )
-from cloud.app.services.brain_evolution_service import BrainEvolutionService
-from cloud.app.services.brain_orchestrator_service import BrainOrchestratorService
-from cloud.app.services.brain_search_service import BrainSearchService
+from cloud.app.services.brain.brain_evolution_service import BrainEvolutionService
+from cloud.app.services.brain.brain_orchestrator_service import BrainOrchestratorService
+from cloud.app.services.brain.brain_search_service import BrainSearchService
 from shared.auth_scope import require_scope
 from shared.base import success
 

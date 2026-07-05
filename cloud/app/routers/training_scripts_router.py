@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.training_scripts_service import TrainingScriptsService
+from cloud.app.services.rep_workbench.training_scripts_service import TrainingScriptsService
 from shared.auth_scope import require_scope
 from shared.base import ApiResponse, PaginatedResponse, success
 

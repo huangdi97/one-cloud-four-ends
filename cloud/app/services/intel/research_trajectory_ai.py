@@ -3,7 +3,7 @@
 import json
 import logging
 
-from cloud.app.services.ai_gateway_service import AiGatewayService
+from cloud.app.services.agent_ops.ai_gateway_service import AiGatewayService
 from shared.config import settings
 
 logger = logging.getLogger(__name__)

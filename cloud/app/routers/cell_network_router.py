@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from starlette import status
 
 from cloud.app.services import CellNetworkService
-from cloud.app.services.cell_topology_service import CellTopologyService
+from cloud.app.services.platform_svc.cell_topology_service import CellTopologyService
 from shared.auth import get_current_user
 from shared.auth_scope import require_scope
 from shared.base import success

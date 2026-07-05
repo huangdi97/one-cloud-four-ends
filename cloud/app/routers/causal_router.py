@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.causal_service import CausalService
+from cloud.app.services.brain.causal_service import CausalService
 from shared.auth_scope import require_scope
 from shared.base import success
 

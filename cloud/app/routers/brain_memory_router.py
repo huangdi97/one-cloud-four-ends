@@ -5,7 +5,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Query, Request
 from pydantic import BaseModel
 
-from cloud.app.services.brain_memory_service import BrainMemoryService
+from cloud.app.services.brain.brain_memory_service import BrainMemoryService
 from shared.auth_scope import require_scope
 from shared.base import PaginatedResponse, success
 

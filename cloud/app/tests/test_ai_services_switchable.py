@@ -9,10 +9,10 @@ import tempfile
 import pytest
 
 from cloud.app.config.provider_config import ProviderMode, ProviderSettings
-from cloud.app.services.asr_service import AsrService
-from cloud.app.services.llm_service import LlmService
-from cloud.app.services.notification_service import NotificationService
-from cloud.app.services.tts_service import TtsService
+from cloud.app.services.agent_ops.llm_service import LlmService
+from cloud.app.services.platform_svc.asr_service import AsrService
+from cloud.app.services.platform_svc.tts_service import TtsService
+from cloud.app.services.rep_workbench.notification_service import NotificationService
 
 
 class TestAsrService:
@@ -215,7 +215,7 @@ class TestNotificationService:
 async def test_audio_to_visit_draft_pipeline() -> None:
     from unittest.mock import patch
 
-    from cloud.app.services.visit_extraction_service import generate_visit_draft
+    from cloud.app.services.rep_workbench.visit_extraction_service import generate_visit_draft
 
     mock_transcript = "Patient reports headache and fever since three days"
     mock_confidence = 0.92
@@ -244,7 +244,7 @@ async def test_audio_to_visit_draft_pipeline() -> None:
 async def test_audio_to_visit_draft_asr_fails() -> None:
     from unittest.mock import patch
 
-    from cloud.app.services.visit_extraction_service import generate_visit_draft
+    from cloud.app.services.rep_workbench.visit_extraction_service import generate_visit_draft
 
     with patch(
         "cloud.app.services.visit_extraction_service.transcribe_audio",
@@ -262,7 +262,7 @@ async def test_audio_to_visit_draft_asr_fails() -> None:
 async def test_audio_to_visit_draft_extraction_fails() -> None:
     from unittest.mock import patch
 
-    from cloud.app.services.visit_extraction_service import generate_visit_draft
+    from cloud.app.services.rep_workbench.visit_extraction_service import generate_visit_draft
 
     mock_transcript = "Patient reports headache and fever since three days"
     mock_confidence = 0.92

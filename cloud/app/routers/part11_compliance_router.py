@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends
 
 from cloud.app.schemas.part11_compliance import SignDocumentRequest
-from cloud.app.services.part11_compliance_service import (
+from cloud.app.services.compliance_svc.part11_compliance_service import (
     get_audit_trail,
     sign_document,
     verify_signature,

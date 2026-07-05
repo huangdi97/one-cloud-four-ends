@@ -1,7 +1,7 @@
 """RL 路由服务，整合 RouteOptimizer 与 RouterLearner，提供统一路由与帕累托优化入口。"""
 
-from cloud.app.services.rl_route_optimizer import RouteOptimizer
-from cloud.app.services.rl_router_learner import RouterLearner
+from cloud.app.services.brain.rl_route_optimizer import RouteOptimizer
+from cloud.app.services.brain.rl_router_learner import RouterLearner
 from shared.base_service import BaseService
 
 

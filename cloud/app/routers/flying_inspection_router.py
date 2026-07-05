@@ -6,8 +6,8 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.capa_workflow_service import confirm_remediation
-from cloud.app.services.flying_inspection_crud import (
+from cloud.app.services.compliance_svc.capa_workflow_service import confirm_remediation
+from cloud.app.services.platform_svc.flying_inspection_crud import (
     create_remediation_task,
     get_audit_trail,
     get_checklist,

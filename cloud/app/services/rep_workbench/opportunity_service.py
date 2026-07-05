@@ -7,7 +7,7 @@ from fastapi import HTTPException
 from starlette import status
 
 from cloud.app.repositories import CustomersRepository, OpportunitiesRepository
-from cloud.app.services.opportunity_scoring import (
+from cloud.app.services.rep_workbench.opportunity_scoring import (
     STAGE_ORDER,
     VALID_STAGES,
     calc_stage_probability,

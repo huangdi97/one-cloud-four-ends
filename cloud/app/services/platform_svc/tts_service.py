@@ -5,9 +5,9 @@ from __future__ import annotations
 import logging
 
 from cloud.app.config.provider_config import ProviderMode, ProviderSettings
-from cloud.app.services.api_providers import ApiTTS
-from cloud.app.services.base_provider import BaseTTS
-from cloud.app.services.local_providers import LocalTTS
+from cloud.app.services.agent_ops.api_providers import ApiTTS
+from cloud.app.services.agent_ops.base_provider import BaseTTS
+from cloud.app.services.platform_svc.local_providers import LocalTTS
 
 logger = logging.getLogger(__name__)
 

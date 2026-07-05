@@ -7,8 +7,8 @@ from typing import Any, Optional
 from fastapi import Depends, Request
 
 from cloud.app.database import get_db
-from cloud.app.services.report_generator import ReportGenerator
-from cloud.app.services.rule_evaluator import RuleEvaluator
+from cloud.app.services.compliance_svc.rule_evaluator import RuleEvaluator
+from cloud.app.services.rep_workbench.report_generator import ReportGenerator
 from shared.base_service import BaseService
 
 

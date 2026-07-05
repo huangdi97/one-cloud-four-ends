@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from cloud.app.services.agent_trace_service import trace_context_router, trace_failure_router, trace_router
+from cloud.app.services.agent_ops.agent_trace_service import trace_context_router, trace_failure_router, trace_router
 
 router = APIRouter()
 router.include_router(trace_router)

@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.mcp_tool_service import McpToolService
+from cloud.app.services.brain.mcp_tool_service import McpToolService
 from shared.auth_scope import require_scope
 from shared.base import success
 

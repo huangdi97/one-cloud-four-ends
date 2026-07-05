@@ -2,11 +2,11 @@
 
 from typing import Optional
 
-from cloud.app.services.holographic_service import HolographicService
-from cloud.app.services.memory_episodic_writer import EpisodicMemoryWriter
-from cloud.app.services.memory_procedural_writer import ProceduralMemoryWriter
-from cloud.app.services.memory_retriever import MemoryRetriever
-from cloud.app.services.memory_working_writer import WorkingMemoryWriter
+from cloud.app.services.brain.memory_episodic_writer import EpisodicMemoryWriter
+from cloud.app.services.brain.memory_procedural_writer import ProceduralMemoryWriter
+from cloud.app.services.brain.memory_retriever import MemoryRetriever
+from cloud.app.services.brain.memory_working_writer import WorkingMemoryWriter
+from cloud.app.services.compliance_svc.holographic_service import HolographicService
 from shared.base_service import BaseService
 
 

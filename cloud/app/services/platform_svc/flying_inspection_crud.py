@@ -6,10 +6,10 @@ from fastapi import HTTPException
 from starlette import status
 
 from cloud.app.schemas.flying_inspection import InspectionChecklist, InspectionTask, TaskStatus
-from cloud.app.services.flying_inspection_calculation import compute_dashboard
+from cloud.app.services.compliance_svc.capa_workflow_service import _add_audit_log, _append_history
+from cloud.app.services.platform_svc.flying_inspection_calculation import compute_dashboard
 
 from ._flying_inspection_data import AUDIT_TRAILS, CHECKLIST, DEFAULT_INSPECTION_ID, HISTORY, TASKS
-from .capa_workflow_service import _add_audit_log, _append_history
 
 
 def get_dashboard():

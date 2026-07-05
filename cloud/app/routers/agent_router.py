@@ -6,8 +6,8 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.agent_execution_service import AgentExecutionService
-from cloud.app.services.orchestrate_service import OrchestrateService
+from cloud.app.services.agent_ops.agent_execution_service import AgentExecutionService
+from cloud.app.services.platform_svc.orchestrate_service import OrchestrateService
 from shared.auth_scope import require_scope
 from shared.base import success
 

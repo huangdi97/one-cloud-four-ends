@@ -1,4 +1,4 @@
-from cloud.app.services.audit_service import AuditService
+from cloud.app.services.compliance_svc.audit_service import AuditService
 
 
 class TestAuditService:

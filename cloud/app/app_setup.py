@@ -12,12 +12,12 @@ from cloud.app.agent_database import init_agent_db
 from cloud.app.database import init_db
 from cloud.app.research_database import init_research_db as init_research
 from cloud.app.routers.cloud_opportunity_router import opportunity_v2_router
-from cloud.app.services.tenant_isolation_service import router as tenant_isolation_router
+from cloud.app.services.platform_svc.tenant_isolation_service import router as tenant_isolation_router
 from cloud.app.soap_route import router as soap_decision_router
 
 logger = logging.getLogger(__name__)
 
-_LOG_DIR = "/var/log/biopulse"
+_LOG_DIR = os.path.expanduser("~/.local/share/biopulse/log")
 os.makedirs(_LOG_DIR, exist_ok=True)
 _file_handler = logging.FileHandler(f"{_LOG_DIR}/app.log")
 _file_handler.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(name)s: %(message)s"))

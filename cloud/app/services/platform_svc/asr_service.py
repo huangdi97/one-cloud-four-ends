@@ -20,9 +20,9 @@ import uuid
 from typing import Any
 
 from cloud.app.config.provider_config import ProviderMode, ProviderSettings
-from cloud.app.services.api_providers import ApiASR
-from cloud.app.services.base_provider import BaseASR
-from cloud.app.services.local_providers import LocalASR
+from cloud.app.services.agent_ops.api_providers import ApiASR
+from cloud.app.services.agent_ops.base_provider import BaseASR
+from cloud.app.services.platform_svc.local_providers import LocalASR
 
 logger = logging.getLogger(__name__)
 

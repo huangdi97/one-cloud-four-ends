@@ -5,8 +5,8 @@ from typing import Any, Optional
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 
-from cloud.app.services.memory_consolidation_service import MemoryConsolidationService
-from cloud.app.services.token_budget_service import TokenBudgetService
+from cloud.app.services.agent_ops.token_budget_service import TokenBudgetService
+from cloud.app.services.brain.memory_consolidation_service import MemoryConsolidationService
 from shared.auth_scope import require_scope
 from shared.base import success
 

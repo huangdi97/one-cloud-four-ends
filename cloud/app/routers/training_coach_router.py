@@ -4,7 +4,7 @@ from typing import Any, Optional
 
 from fastapi import APIRouter, Depends, Request
 
-from cloud.app.services.training_coach_service import TrainingCoachService
+from cloud.app.services.rep_workbench.training_coach_service import TrainingCoachService
 from cloud.app.training_coach_handlers import AttributionCreate, ModuleCreate, SessionCreate
 from shared.auth_scope import require_scope
 from shared.base import PaginatedResponse, success

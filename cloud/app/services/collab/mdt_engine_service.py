@@ -1,7 +1,7 @@
 """MDT引擎服务，整合辩论与共识解析能力。"""
 
-from cloud.app.services.mdt_debater import MdtDebater
-from cloud.app.services.mdt_resolver import MdtResolver
+from cloud.app.services.collab.mdt_debater import MdtDebater
+from cloud.app.services.collab.mdt_resolver import MdtResolver
 from shared.base_service import BaseService
 
 

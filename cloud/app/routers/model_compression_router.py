@@ -5,7 +5,7 @@ from typing import Any, Optional
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
-from cloud.app.services.model_compression_service import (
+from cloud.app.services.platform_svc.model_compression_service import (
     BASE_PARAM_COUNTS,
     COMPRESSION_TYPES,
     ModelCompressionService,

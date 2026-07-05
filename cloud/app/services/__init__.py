@@ -13,8 +13,10 @@ def _register_subpackage(subpackage_name: str, module_names: tuple[str, ...]) ->
             _sys.modules[f"cloud.app.services.{mod_name}"] = _importlib.import_module(  # noqa: F821
                 f"cloud.app.services.{subpackage_name}.{mod_name}"
             )
-        except Exception:
-            pass
+        except Exception as exc:
+            import logging
+
+            logging.warning("_register_subpackage(%r, %r) failed: %s: %s", subpackage_name, mod_name, type(exc).__name__, exc)
 
 
 # ── Backward-compatible re-exports — order matters for cross-package deps ──

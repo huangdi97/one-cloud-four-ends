@@ -5,7 +5,8 @@ from pydantic import BaseModel
 
 from cloud.app.agent_database import get_agent_db
 from cloud.app.agent_runtime.audit.agent_audit import AgentAuditor
-from cloud.app.services.agent_ops.agent_runtime_service import AgentRuntimeService, ToolBridge
+from cloud.app.agent_runtime.tools.tool_bridge import ToolBridge
+from cloud.app.services.agent_ops.agent_runtime_service import AgentRuntimeService
 from shared.auth_scope import require_scope
 from shared.base import success
 

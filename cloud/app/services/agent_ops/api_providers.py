@@ -15,8 +15,8 @@ from typing import Any
 import httpx
 
 from cloud.app.config.provider_config import ProviderSettings
-from cloud.app.services.base_provider import BaseASR, BaseLLM, BasePush, BaseTTS
-from cloud.app.services.local_providers import LocalASR, LocalLLM, LocalPush, LocalTTS
+from cloud.app.services.agent_ops.base_provider import BaseASR, BaseLLM, BasePush, BaseTTS
+from cloud.app.services.platform_svc.local_providers import LocalASR, LocalLLM, LocalPush, LocalTTS
 
 logger = logging.getLogger(__name__)
 

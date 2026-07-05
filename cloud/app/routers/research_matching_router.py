@@ -8,8 +8,8 @@ descriptions using keyword overlap scoring.
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
-from cloud.app.services.product_matching_service import match_products_by_method, match_products_for_pi
-from cloud.app.services.research_service import ResearchService
+from cloud.app.services.intel.research_service import ResearchService
+from cloud.app.services.rep_workbench.product_matching_service import match_products_by_method, match_products_for_pi
 from shared.auth import get_current_user
 from shared.auth_scope import require_scope
 from shared.base import success
@@ -74,7 +74,7 @@ from typing import Optional  # noqa: E402
 from fastapi import APIRouter, Depends, HTTPException, Query  # noqa: E402
 from pydantic import BaseModel  # noqa: E402
 
-from cloud.app.services.research_pi_service import ResearchPiService  # noqa: E402
+from cloud.app.services.intel.research_pi_service import ResearchPiService  # noqa: E402
 from shared.auth import get_current_user  # noqa: E402
 from shared.auth_scope import require_scope  # noqa: E402
 
@@ -152,7 +152,7 @@ def create_pi(
 
 from fastapi import APIRouter, Depends, Query  # noqa: E402
 
-from cloud.app.services.research_product_service import ResearchProductService  # noqa: E402
+from cloud.app.services.intel.research_product_service import ResearchProductService  # noqa: E402
 from shared.auth import get_current_user  # noqa: E402
 from shared.auth_scope import require_scope  # noqa: E402
 

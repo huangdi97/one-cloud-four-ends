@@ -3,7 +3,7 @@ from typing import Any
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
 
-from cloud.app.services.inference_pipeline import InferencePipeline
+from cloud.app.services.platform_svc.inference_pipeline import InferencePipeline
 from shared.auth_scope import require_scope
 from shared.base import success
 
@@ -36,7 +36,7 @@ _PRESET_SCENARIOS: list[dict] = [
 async def run_inference(
     body: InferenceRequest,
     current_user: dict = Depends(require_scope("visit")),
-    pipeline: InferencePipeline = Depends(),
+    pipeline=Depends(),
 ) -> Any:
     pipeline = pipeline or InferencePipeline()
     result = await pipeline.run(

@@ -14,9 +14,9 @@ from cloud.app.config.provider_config import (
     ProviderType,
     get_provider_config,
 )
-from cloud.app.services.api_providers import ApiASR, ApiLLM, ApiPush, ApiTTS
-from cloud.app.services.base_provider import BaseASR, BaseLLM, BasePush, BaseTTS, get_provider
-from cloud.app.services.local_providers import LocalASR, LocalLLM, LocalPush, LocalTTS
+from cloud.app.services.agent_ops.api_providers import ApiASR, ApiLLM, ApiPush, ApiTTS
+from cloud.app.services.agent_ops.base_provider import BaseASR, BaseLLM, BasePush, BaseTTS, get_provider
+from cloud.app.services.platform_svc.local_providers import LocalASR, LocalLLM, LocalPush, LocalTTS
 
 
 class TestProviderConfig:

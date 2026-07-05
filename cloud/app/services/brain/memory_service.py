@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from cloud.app.services.memory_namespace import MemoryNamespace
+from cloud.app.services.brain.memory_namespace import MemoryNamespace
 
 __all__ = ["MemoryService"]
 

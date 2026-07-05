@@ -1,6 +1,6 @@
 from types import SimpleNamespace
 
-from cloud.app.services.visit_service import VisitService
+from cloud.app.services.rep_workbench.visit_service import VisitService
 
 
 class TestVisitService:

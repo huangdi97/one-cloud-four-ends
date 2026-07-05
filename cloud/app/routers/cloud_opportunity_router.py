@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, Field
 from starlette import status
 
-from cloud.app.services.opportunity_service import OpportunityService
+from cloud.app.services.rep_workbench.opportunity_service import OpportunityService
 from shared.auth_scope import require_scope
 from shared.base import success
 

@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.collaboration_service import CollaborationService
+from cloud.app.services.collab.collaboration_service import CollaborationService
 from shared.auth_scope import require_scope
 from shared.base import success
 

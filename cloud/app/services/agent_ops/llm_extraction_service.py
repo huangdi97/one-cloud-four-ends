@@ -6,9 +6,9 @@ import json
 import logging
 from typing import Any
 
-from cloud.app.services.extraction_schema import ExtractionSchema
-from cloud.app.services.llm_service import LlmService
-from cloud.app.services.memory_service import MemoryService
+from cloud.app.services.agent_ops.llm_service import LlmService
+from cloud.app.services.brain.memory_service import MemoryService
+from cloud.app.services.platform_svc.extraction_schema import ExtractionSchema
 
 logger = logging.getLogger(__name__)
 

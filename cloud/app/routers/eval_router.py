@@ -6,7 +6,7 @@
 
 from fastapi import APIRouter, Depends
 
-from cloud.app.services.eval_service import EvalService
+from cloud.app.services.rep_workbench.eval_service import EvalService
 from shared.auth_scope import require_scope
 from shared.base import success
 

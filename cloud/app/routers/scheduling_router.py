@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 
-from cloud.app.services.scheduling_service import SchedulingService
+from cloud.app.services.rep_workbench.scheduling_service import SchedulingService
 from shared.auth_scope import require_scope
 from shared.base import success
 

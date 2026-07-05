@@ -6,19 +6,19 @@ from starlette import status
 from starlette.responses import Response
 
 from cloud.app.compliance.research_enforcer import ResearchComplianceEnforcer
-from cloud.app.services.research_audit_service import (
+from cloud.app.services.brain.route_tsp import (
+    estimate_travel_time,
+    haversine,
+    optimize_route,
+)
+from cloud.app.services.intel.research_audit_service import (
     get_audit_log,
     get_audit_logs,
     get_audit_logs_by_type,
     record_switch,
 )
-from cloud.app.services.research_export_service import export_pi_csv, export_quotation
-from cloud.app.services.research_service import ResearchService
-from cloud.app.services.route_tsp import (
-    estimate_travel_time,
-    haversine,
-    optimize_route,
-)
+from cloud.app.services.intel.research_export_service import export_pi_csv, export_quotation
+from cloud.app.services.intel.research_service import ResearchService
 from shared.auth import get_current_user
 from shared.auth_scope import require_scope
 from shared.base import success

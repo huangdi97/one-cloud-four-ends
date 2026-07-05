@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 
 from cloud.app.config.provider_config import ProviderSettings
-from cloud.app.services.base_provider import BaseASR, BaseLLM, BasePush, BaseTTS
+from cloud.app.services.agent_ops.base_provider import BaseASR, BaseLLM, BasePush, BaseTTS
 
 logger = logging.getLogger(__name__)
 

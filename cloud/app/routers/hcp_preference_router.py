@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from cloud.app.services.hcp_channel_preference import get_preferred_strategy
+from cloud.app.services.rep_workbench.hcp_channel_preference import get_preferred_strategy
 from shared.base import success
 
 router = APIRouter(prefix="/api/hcp", tags=["HCP渠道偏好"])

@@ -7,8 +7,8 @@ from typing import Any
 from cloud.app.repositories.sage_repository import SageRepository
 from cloud.app.repositories.world_tree_repository import WorldTreeNodesRepository
 from cloud.app.research_database import get_research_db
-from cloud.app.services.brain_memory_service import BrainMemoryService
-from cloud.app.services.world_tree_service import WorldTreeService
+from cloud.app.services.brain.brain_memory_service import BrainMemoryService
+from cloud.app.services.brain.world_tree_service import WorldTreeService
 
 logger = logging.getLogger(__name__)
 

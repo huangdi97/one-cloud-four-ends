@@ -12,7 +12,7 @@ from cloud.app.repositories import (
     ComplianceAuditRecordsRepository,
     ComplianceRulesRepository,
 )
-from cloud.app.services.rule_aggregator import RuleAggregatorMixin, _parse_json
+from cloud.app.services.compliance_svc.rule_aggregator import RuleAggregatorMixin, _parse_json
 from shared.ai_gateway import LLM_INFERENCE_TIMEOUT
 from shared.base import success
 from shared.base_service import BaseService

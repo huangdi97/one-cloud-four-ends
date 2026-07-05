@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.marketplace_service import MarketplaceService
+from cloud.app.services.collab.marketplace_service import MarketplaceService
 from shared.auth_scope import require_scope
 from shared.base import success
 

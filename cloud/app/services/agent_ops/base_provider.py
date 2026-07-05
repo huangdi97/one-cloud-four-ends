@@ -83,8 +83,8 @@ def get_provider(
     Returns:
         A concrete provider instance (Local or Api variant).
     """
-    from cloud.app.services.api_providers import ApiASR, ApiLLM, ApiPush, ApiTTS
-    from cloud.app.services.local_providers import LocalASR, LocalLLM, LocalPush, LocalTTS
+    from cloud.app.services.agent_ops.api_providers import ApiASR, ApiLLM, ApiPush, ApiTTS
+    from cloud.app.services.platform_svc.local_providers import LocalASR, LocalLLM, LocalPush, LocalTTS
 
     if config is None:
         from cloud.app.config.provider_config import get_provider_config

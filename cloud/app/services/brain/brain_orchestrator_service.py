@@ -2,7 +2,7 @@
 
 import json
 
-from cloud.app.services.brain_task_scheduler import (
+from cloud.app.services.brain.brain_task_scheduler import (
     _now,
     orchestrator_flow,
     schedule_sensory,

@@ -1,7 +1,7 @@
 """Tests: CAPA anomaly event → remediation task auto-creation → close loop."""
 
 from cloud.app.schemas.flying_inspection import TaskStatus
-from cloud.app.services.capa_event_service import AnomalyEvent, CAPAEventService
+from cloud.app.services.compliance_svc.capa_event_service import AnomalyEvent, CAPAEventService
 
 
 class TestCAPAEventService:

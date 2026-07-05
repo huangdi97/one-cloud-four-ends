@@ -4,7 +4,7 @@ import math
 import threading
 from collections import OrderedDict
 
-from cloud.app.services.ai_gateway_service import get_embedding
+from cloud.app.services.agent_ops.ai_gateway_service import get_embedding
 
 
 def cosine_similarity(a: list[float], b: list[float]) -> float:

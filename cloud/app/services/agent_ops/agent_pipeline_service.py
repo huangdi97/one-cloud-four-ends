@@ -13,7 +13,7 @@ from cloud.app.repositories import (
     PipelineStepRunsRepository,
     PipelineStepsRepository,
 )
-from cloud.app.services.agent_pipeline_exec import PipelineRunQueryMixin
+from cloud.app.services.agent_ops.agent_pipeline_exec import PipelineRunQueryMixin
 from cloud.lg_utils.pipeline_graph import get_pipeline_graph
 from shared.base import ApiResponse, success
 from shared.base_service import BaseService

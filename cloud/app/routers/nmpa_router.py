@@ -9,7 +9,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 
-from cloud.app.services.nmpa_service import NmpaService
+from cloud.app.services.intel.nmpa_service import NmpaService
 from shared.auth_scope import require_scope
 from shared.base import success
 

@@ -7,7 +7,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.federated_node_service import FederatedNodeService
+from cloud.app.services.brain.federated_node_service import FederatedNodeService
 from shared.auth_scope import require_scope
 from shared.base import success
 

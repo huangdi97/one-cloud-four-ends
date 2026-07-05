@@ -5,7 +5,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Query, Request
 from pydantic import BaseModel
 
-from cloud.app.services.mdt_engine_service import MdtEngineService
+from cloud.app.services.collab.mdt_engine_service import MdtEngineService
 from shared.auth_scope import require_scope
 from shared.base import success
 

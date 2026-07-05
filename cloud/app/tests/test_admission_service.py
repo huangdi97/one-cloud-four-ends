@@ -1,4 +1,4 @@
-from cloud.app.services.admission_service import AdmissionService
+from cloud.app.services.bidding.admission_service import AdmissionService
 
 
 class TestAdmissionService:

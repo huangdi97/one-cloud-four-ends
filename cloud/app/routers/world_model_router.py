@@ -4,7 +4,7 @@ import logging
 
 from fastapi import APIRouter, Query
 
-from cloud.app.services.world_model_service import WorldModelService
+from cloud.app.services.brain.world_model_service import WorldModelService
 
 logger = logging.getLogger(__name__)
 

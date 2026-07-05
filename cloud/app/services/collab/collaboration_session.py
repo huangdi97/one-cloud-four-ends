@@ -6,7 +6,7 @@ from typing import Optional
 from fastapi import HTTPException
 
 from cloud.app.repositories import CollaborationSessionsRepository, CollaborationStepsRepository
-from cloud.app.services.collaboration_message import CollaborationMessageMixin
+from cloud.app.services.collab.collaboration_message import CollaborationMessageMixin
 
 
 class CollaborationSessionMixin(CollaborationMessageMixin):

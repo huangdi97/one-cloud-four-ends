@@ -4,7 +4,7 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, Query
 
-from cloud.app.services.soap_decision_service import SoapDecisionService
+from cloud.app.services.rep_workbench.soap_decision_service import SoapDecisionService
 from cloud.app.soap_templater import create_template, list_templates
 from cloud.app.soap_validator import DecisionCreate, DecisionUpdate, FinalizeRequest, OpinionCreate
 from shared.auth_scope import require_scope

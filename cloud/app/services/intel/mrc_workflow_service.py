@@ -2,7 +2,7 @@
 
 import warnings
 
-from cloud.app.services.mrc_workflow_crud import (
+from cloud.app.services.intel.mrc_workflow_crud import (
     approve,
     create_material,
     distribute,

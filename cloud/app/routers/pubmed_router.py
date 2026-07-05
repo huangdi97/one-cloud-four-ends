@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
-from cloud.app.services.pubmed_service import search_pubmed
+from cloud.app.services.intel.pubmed_service import search_pubmed
 from shared.auth_scope import require_scope
 from shared.base import success
 

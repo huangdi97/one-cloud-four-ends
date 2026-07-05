@@ -5,10 +5,10 @@ import pytest
 
 from cloud.app import database as database_module
 from cloud.app.repositories import CustomersRepository, PiRepository, ProductRepository
-from cloud.app.services.auth_service import AuthService
-from cloud.app.services.enforcer_service import EnforcerService
-from cloud.app.services.hcp_sandbox_service import HcpSandboxService
-from cloud.app.services.opportunity_service import OpportunityService
+from cloud.app.services.compliance_svc.enforcer_service import EnforcerService
+from cloud.app.services.platform_svc.auth_service import AuthService
+from cloud.app.services.rep_workbench.hcp_sandbox_service import HcpSandboxService
+from cloud.app.services.rep_workbench.opportunity_service import OpportunityService
 
 
 def _get_db():
@@ -166,13 +166,13 @@ class TestCoreAPIPerformance:
         assert "processed_by_B" in result["messages"]
 
     def test_product_matching(self, benchmark):
-        from cloud.app.services.product_matching_service import _tokenize
+        from cloud.app.services.rep_workbench.product_matching_service import _tokenize
 
         result = benchmark(_tokenize, "PCR amplification for DNA sequencing")
         assert isinstance(result, set)
 
     def test_dashboard_overview(self, benchmark):
-        from cloud.app.services.dashboard_service import DashboardService
+        from cloud.app.services.rep_workbench.dashboard_service import DashboardService
 
         db = _get_db()
         try:
@@ -205,7 +205,7 @@ class TestCoreAPIPerformance:
         assert result.score == 1.0
 
     def test_research_pi_query(self, benchmark):
-        from cloud.app.services.research_pi_service import ResearchPiService
+        from cloud.app.services.intel.research_pi_service import ResearchPiService
 
         service = ResearchPiService()
         result = benchmark(service.search, "test")

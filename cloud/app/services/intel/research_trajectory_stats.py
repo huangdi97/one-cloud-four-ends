@@ -4,7 +4,7 @@ from collections import Counter
 from datetime import datetime, timedelta
 
 from cloud.app.research_database import get_research_db
-from cloud.app.services.feature_extractor import normalize_areas
+from cloud.app.services.brain.feature_extractor import normalize_areas
 
 
 class ResearchTrajectoryStatsMixin:

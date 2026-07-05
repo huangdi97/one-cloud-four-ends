@@ -4,7 +4,7 @@ from typing import Optional
 
 from cloud.app.repositories import FederatedNodesRepository, FederatedRoundsRepository
 from cloud.app.repositories.audit_repository import AuditLogsRepository, FedAuditContributionsRepository
-from cloud.app.services.fed_weight_calculator import (
+from cloud.app.services.platform_svc.fed_weight_calculator import (
     audit_log_to_dict,
     contribution_to_dict,
     is_node_compliant,

@@ -9,7 +9,7 @@ from cloud.app.repositories import (
     AgentMarketplaceRepository,
     EffectMetricsRepository,
 )
-from cloud.app.services.marketplace_benchmark import MarketplaceBenchmarkMixin
+from cloud.app.services.collab.marketplace_benchmark import MarketplaceBenchmarkMixin
 from shared.base_service import BaseService
 
 

@@ -6,7 +6,7 @@ from cloud.app.schemas.mrc_workflow import (
     MaterialCreate,
     MRCDecisionRequest,
 )
-from cloud.app.services.mrc_workflow_service import (
+from cloud.app.services.intel.mrc_workflow_service import (
     approve,
     create_material,
     distribute,

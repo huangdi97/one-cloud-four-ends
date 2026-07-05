@@ -1,10 +1,9 @@
 """CAPA 事件驱动服务 — 异常事件自动触发整改任务创建与闭环管理。"""
 
 from cloud.app.schemas.flying_inspection import InspectionTask, TaskStatus
-from cloud.app.services.flying_inspection_calculation import compute_dashboard
-from cloud.app.services.flying_inspection_crud import create_remediation_task
-
-from ._flying_inspection_data import CHECKLIST, DEFAULT_INSPECTION_ID, HISTORY
+from cloud.app.services.platform_svc._flying_inspection_data import CHECKLIST, DEFAULT_INSPECTION_ID, HISTORY
+from cloud.app.services.platform_svc.flying_inspection_calculation import compute_dashboard
+from cloud.app.services.platform_svc.flying_inspection_crud import create_remediation_task
 
 
 class AnomalyEvent:
@@ -36,13 +35,13 @@ class CAPAEventService:
 
     def get_open_tasks_for_agent(self, agent: str) -> list[InspectionTask]:
         """查询指定 Agent 的未完成任务。"""
-        from ._flying_inspection_data import TASKS
+        from cloud.app.services.platform_svc._flying_inspection_data import TASKS
 
         return [task for task in TASKS.values() if task.assignee == agent and task.status in (TaskStatus.PENDING, TaskStatus.IN_PROGRESS)]
 
     def complete_task_and_close_loop(self, task_id: str, who: str = "质量负责人", evidence: str = "remediation-evidence") -> InspectionTask:
         """确认整改完成，回写闭环状态。"""
-        from .capa_workflow_service import confirm_remediation
+        from cloud.app.services.compliance_svc.capa_workflow_service import confirm_remediation
 
         return confirm_remediation(
             task_id=task_id,

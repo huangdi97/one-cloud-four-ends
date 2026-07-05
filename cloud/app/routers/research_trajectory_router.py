@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 
-from cloud.app.services.research_trajectory_service import ResearchTrajectoryService
+from cloud.app.services.intel.research_trajectory_service import ResearchTrajectoryService
 from shared.auth import get_current_user
 from shared.auth_scope import require_scope
 from shared.base import success

@@ -11,9 +11,9 @@ from cloud.app.repositories import (
     KgRelationsRepository,
     KgSearchCacheRepository,
 )
-from cloud.app.services.kg_builder import get_subgraph as _get_subgraph
-from cloud.app.services.kg_builder import search_kg as _search_kg
-from cloud.app.services.kg_stats import dashboard_stats as _dashboard_stats
+from cloud.app.services.brain.kg_builder import get_subgraph as _get_subgraph
+from cloud.app.services.brain.kg_builder import search_kg as _search_kg
+from cloud.app.services.brain.kg_stats import dashboard_stats as _dashboard_stats
 from shared.base_service import BaseService
 
 

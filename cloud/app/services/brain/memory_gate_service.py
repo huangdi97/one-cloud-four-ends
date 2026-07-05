@@ -12,8 +12,8 @@ from cloud.app.repositories import (
     MemoryGatesRepository,
     MemoryRecallLogRepository,
 )
-from cloud.app.services.holographic_service import HolographicService
-from cloud.app.services.memory_evaluator_service import MemoryEvaluatorService
+from cloud.app.services.brain.memory_evaluator_service import MemoryEvaluatorService
+from cloud.app.services.compliance_svc.holographic_service import HolographicService
 from shared.base_service import BaseService
 from shared.datetime_utils import now as _now
 

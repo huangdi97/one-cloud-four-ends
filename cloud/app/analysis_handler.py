@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, Query, Request
 from pydantic import BaseModel
 
 from cloud.app.decision_analyst import DecisionAnalyst
-from cloud.app.services.decision_intel_service import DecisionIntelService
+from cloud.app.services.compliance_svc.decision_intel_service import DecisionIntelService
 from shared.auth_scope import require_scope
 
 analysis_router = APIRouter()

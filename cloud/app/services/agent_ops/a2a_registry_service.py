@@ -6,7 +6,7 @@ import uuid
 from fastapi import HTTPException
 from starlette import status
 
-from cloud.app.services.a2a_discovery import A2aDiscoveryMixin
+from cloud.app.services.agent_ops.a2a_discovery import A2aDiscoveryMixin
 from shared.base_service import BaseService
 from shared.datetime_utils import row_to_dict
 

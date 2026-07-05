@@ -13,9 +13,9 @@ from cloud.app.repositories import (
     NotificationsRepository,
     NotificationTemplatesRepository,
 )
-from cloud.app.services.api_providers import ApiPush
-from cloud.app.services.local_providers import LocalPush
-from cloud.app.services.notification_builder import NotificationBuilderMixin, _render_template
+from cloud.app.services.agent_ops.api_providers import ApiPush
+from cloud.app.services.platform_svc.local_providers import LocalPush
+from cloud.app.services.rep_workbench.notification_builder import NotificationBuilderMixin, _render_template
 from shared.base_service import BaseService
 
 logger = logging.getLogger(__name__)

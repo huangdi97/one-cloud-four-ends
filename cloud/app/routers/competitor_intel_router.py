@@ -10,7 +10,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 from starlette import status
 
-from cloud.app.services.competitor_tools import (
+from cloud.app.services.intel.competitor_tools import (
     PRODUCTS,
     _price_points,
     competitive_comparison,

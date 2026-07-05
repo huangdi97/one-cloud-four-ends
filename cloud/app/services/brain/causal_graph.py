@@ -8,7 +8,7 @@ from fastapi import HTTPException
 from starlette import status
 
 from cloud.app.repositories import CausalGraphsRepository, CounterfactualScenariosRepository
-from cloud.app.services.causal_inference import CausalInferenceMixin
+from cloud.app.services.brain.causal_inference import CausalInferenceMixin
 
 
 def _gen_graph_id() -> str:

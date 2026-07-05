@@ -1,7 +1,9 @@
 """推演管线服务 — 串接 causal_service + hypothesizer + verifier + pattern_discovery + narrator。"""
 
+from __future__ import annotations
+
 from dataclasses import asdict, dataclass, field
-from typing import Any
+from typing import Any, Optional
 
 from cloud.app.analysis import (
     HypothesisVerifier,
@@ -9,7 +11,7 @@ from cloud.app.analysis import (
     Narrator,
     PatternDiscovery,
 )
-from cloud.app.services.causal_service import CausalService
+from cloud.app.services.brain.causal_service import CausalService
 
 
 @dataclass
@@ -52,7 +54,7 @@ class InferenceResult:
 class InferencePipeline:
     def __init__(
         self,
-        hypothesizer: Hypothesizer | None = None,
+        hypothesizer: Optional[Hypothesizer] = None,
         verifier: HypothesisVerifier | None = None,
         pattern_discovery: PatternDiscovery | None = None,
         narrator: Narrator | None = None,

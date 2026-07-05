@@ -11,7 +11,7 @@ from cloud.app.repositories import (
     SoapDecisionsRepository,
     SoapTemplatesRepository,
 )
-from cloud.app.services.soap_decision_parser import SoapDecisionParserMixin, _row
+from cloud.app.services.rep_workbench.soap_decision_parser import SoapDecisionParserMixin, _row
 from shared.base_service import BaseService
 
 

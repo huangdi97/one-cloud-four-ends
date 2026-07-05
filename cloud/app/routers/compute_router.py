@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.compute_service import ComputeService
+from cloud.app.services.platform_svc.compute_service import ComputeService
 from shared.auth_scope import require_scope
 from shared.base import success
 

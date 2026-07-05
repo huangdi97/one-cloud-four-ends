@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from starlette import status
 
 from cloud.app.database import get_db
-from cloud.app.services.notification_service import NotificationService
+from cloud.app.services.rep_workbench.notification_service import NotificationService
 from shared.auth_scope import require_scope
 from shared.base import success
 

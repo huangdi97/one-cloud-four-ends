@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
-from cloud.app.services.enforcer_service import EnforcerService
+from cloud.app.services.compliance_svc.enforcer_service import EnforcerService
 from shared.auth_scope import require_scope
 from shared.base import success
 

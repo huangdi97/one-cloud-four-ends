@@ -13,8 +13,8 @@ from cloud.app.repositories import (
     EventBusMessagesRepository,
     EventDeliveryLogRepository,
 )
-from cloud.app.services.redis_event_backend import RedisEventBackend
-from cloud.app.services.sqlite_event_backend import SqliteEventBackend
+from cloud.app.services.platform_svc.redis_event_backend import RedisEventBackend
+from cloud.app.services.platform_svc.sqlite_event_backend import SqliteEventBackend
 from shared.base_service import BaseService
 
 ALL_ENDS = ["cloud", "sales-coach", "sales-assistant", "assistant", "opportunity"]

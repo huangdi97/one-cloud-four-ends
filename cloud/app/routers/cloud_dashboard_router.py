@@ -4,7 +4,7 @@ from typing import Any
 
 from fastapi import APIRouter, Depends
 
-from cloud.app.services.dashboard_service import DashboardService
+from cloud.app.services.rep_workbench.dashboard_service import DashboardService
 from shared.auth_scope import require_scope
 from shared.base import success
 

@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from starlette import status
 
 from cloud.app.database import get_db
-from cloud.app.services.auth_service import AuthService
+from cloud.app.services.platform_svc.auth_service import AuthService
 from shared.auth import add_token_to_blacklist, verify_token
 from shared.base import success
 

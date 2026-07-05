@@ -1,4 +1,4 @@
-from cloud.app.services.approval_service import ApprovalService
+from cloud.app.services.platform_svc.approval_service import ApprovalService
 
 
 class TestApprovalService:

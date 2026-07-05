@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from starlette import status
 
 from cloud.app.schemas.rep_license import LicenseVerifyRequest
-from cloud.app.services.rep_license_service import check_expiry, get_rep_license, verify_license
+from cloud.app.services.platform_svc.rep_license_service import check_expiry, get_rep_license, verify_license
 from shared.auth_scope import require_scope
 from shared.base import success
 

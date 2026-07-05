@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
 from cloud.app.compliance.service import ComplianceService
-from cloud.app.services.dashboard_service import DashboardService
+from cloud.app.services.rep_workbench.dashboard_service import DashboardService
 from shared.base import success
 
 router = APIRouter(prefix="/api/demo", tags=["demo"])

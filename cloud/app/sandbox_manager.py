@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.hcp_sandbox_service import HcpSandboxService
+from cloud.app.services.rep_workbench.hcp_sandbox_service import HcpSandboxService
 from shared.auth_scope import require_scope
 from shared.base import success
 

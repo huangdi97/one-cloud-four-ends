@@ -13,7 +13,7 @@ from cloud.app.repositories import (
     UserBehaviorsRepository,
     UserProfilesRepository,
 )
-from cloud.app.services.recommend_filter import calc_dashboard_stats, paginate_behaviors
+from cloud.app.services.rep_workbench.recommend_filter import calc_dashboard_stats, paginate_behaviors
 from shared.base import PaginatedResponse, validate_columns
 from shared.base_service import BaseService
 from shared.columns import TABLE_USER_PROFILES_COLS

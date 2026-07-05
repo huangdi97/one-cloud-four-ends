@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.agent_role_service import AgentRoleService
+from cloud.app.services.agent_ops.agent_role_service import AgentRoleService
 from shared.auth_scope import require_scope
 from shared.base import success
 

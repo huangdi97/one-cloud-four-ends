@@ -3,7 +3,7 @@
 import json
 from typing import Dict, List, Optional
 
-from cloud.app.services.world_tree_search import _build, _get_repos, _node_or_404
+from cloud.app.services.brain.world_tree_search import _build, _get_repos, _node_or_404
 
 
 class WorldTreeQueryMixin:

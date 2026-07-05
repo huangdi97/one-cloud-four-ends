@@ -3,7 +3,7 @@
 import sqlite3
 from unittest.mock import MagicMock
 
-from cloud.app.services.diversion_service import DiversionDetectionService
+from cloud.app.services.compliance_svc.diversion_service import DiversionDetectionService
 
 
 class TestDiversionHolographicE2E:

@@ -1,4 +1,4 @@
-from cloud.app.services.scheduling_service import SchedulingService
+from cloud.app.services.rep_workbench.scheduling_service import SchedulingService
 
 
 class TestSchedulingService:

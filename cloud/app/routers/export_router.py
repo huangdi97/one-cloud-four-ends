@@ -4,7 +4,7 @@ from typing import Any
 
 from fastapi import APIRouter, Depends
 
-from cloud.app.services.export_service import ExportService
+from cloud.app.services.platform_svc.export_service import ExportService
 from shared.auth_scope import require_scope
 from shared.base import success
 

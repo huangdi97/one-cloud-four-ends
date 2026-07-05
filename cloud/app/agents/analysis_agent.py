@@ -21,7 +21,7 @@ from cloud.app.analysis import (
     RelatedPattern,
 )
 from cloud.app.analysis.verifier import VerificationResult
-from cloud.app.services.causal_service import CausalService
+from cloud.app.services.brain.causal_service import CausalService
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ class AnalysisAgent(BaseAgent):
         self,
         identity: AgentIdentity,
         pattern_discovery: PatternDiscovery | None = None,
-        hypothesizer: Hypothesizer | None = None,
+        hypothesizer: Optional[Hypothesizer] = None,
         narrator: Narrator | None = None,
         causal_service: CausalService | None = None,
         runtime_core: Optional[Any] = None,

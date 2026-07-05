@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from starlette import status
 
-from cloud.app.services.approval_service import ApprovalService
+from cloud.app.services.platform_svc.approval_service import ApprovalService
 from shared.auth_scope import require_scope
 from shared.base import success
 

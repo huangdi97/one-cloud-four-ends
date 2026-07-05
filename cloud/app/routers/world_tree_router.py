@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.world_tree_service import WorldTreeService
+from cloud.app.services.brain.world_tree_service import WorldTreeService
 from shared.auth_scope import require_scope
 from shared.base import success
 

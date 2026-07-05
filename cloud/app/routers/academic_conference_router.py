@@ -9,7 +9,7 @@ from cloud.app.schemas.academic_conference import (
     Meeting,
     MeetingCreate,
 )
-from cloud.app.services.academic_conference_service import (
+from cloud.app.services.intel.academic_conference_service import (
     checkin_meeting,
     create_meeting,
     get_analytics,

@@ -10,7 +10,7 @@ import uuid
 from datetime import datetime, timedelta
 
 from cloud.app.database import DB_PATH
-from cloud.app.services.asr_service import transcribe_audio
+from cloud.app.services.platform_svc.asr_service import transcribe_audio
 
 DEFAULT_CONFIDENCE_THRESHOLD = 0.8
 
@@ -106,10 +106,10 @@ def confirm_draft(draft_id: str, user_id: str, edited_fields: dict) -> dict:
 
 
 async def extract_visit_fields(transcript: str, confidence: float) -> dict:
-    from cloud.app.services.extraction_schema import ExtractionSchema
-    from cloud.app.services.llm_extraction_service import LLMExtractionService
-    from cloud.app.services.llm_service import LlmService
-    from cloud.app.services.memory_service import MemoryService
+    from cloud.app.services.agent_ops.llm_extraction_service import LLMExtractionService
+    from cloud.app.services.agent_ops.llm_service import LlmService
+    from cloud.app.services.brain.memory_service import MemoryService
+    from cloud.app.services.platform_svc.extraction_schema import ExtractionSchema
 
     llm = LlmService()
     mem = MemoryService()

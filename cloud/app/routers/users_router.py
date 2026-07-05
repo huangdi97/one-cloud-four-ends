@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from starlette import status
 
-from cloud.app.services.user_service import UserService
+from cloud.app.services.rep_workbench.user_service import UserService
 from shared.auth_scope import require_scope
 from shared.base import success
 

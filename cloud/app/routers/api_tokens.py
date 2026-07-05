@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.api_token_service import ApiTokenService
+from cloud.app.services.platform_svc.api_token_service import ApiTokenService
 from shared.auth_scope import require_scope
 from shared.base import success
 

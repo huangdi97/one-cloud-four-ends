@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from cloud.app.services.product_match_scorer import (
+from cloud.app.services.rep_workbench.product_match_scorer import (
     _compute_jaccard_score,
     _parse_json_list,
     _tokenize,

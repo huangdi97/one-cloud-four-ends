@@ -5,7 +5,7 @@ from typing import Any, List
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
-from cloud.app.services.config_service import ConfigService
+from cloud.app.services.platform_svc.config_service import ConfigService
 from shared.auth_scope import require_scope
 from shared.base import success
 

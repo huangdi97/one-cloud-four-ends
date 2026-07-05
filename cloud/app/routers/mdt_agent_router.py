@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel
 
-from cloud.app.services.mdt_agent_service import MdtAgentService
+from cloud.app.services.collab.mdt_agent_service import MdtAgentService
 from shared.auth_scope import require_scope
 from shared.base import success
 

@@ -5,8 +5,8 @@ from typing import Optional
 from fastapi import HTTPException
 from starlette import status
 
-from cloud.app.services.decision_logger import DecisionLogger
-from cloud.app.services.intel_analyzer import IntelAnalyzer
+from cloud.app.services.compliance_svc.decision_logger import DecisionLogger
+from cloud.app.services.intel.intel_analyzer import IntelAnalyzer
 from shared.base_service import BaseService
 
 

@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.a2a_registry_service import A2aRegistryService
+from cloud.app.services.agent_ops.a2a_registry_service import A2aRegistryService
 from shared.auth_scope import require_scope
 from shared.base import success
 

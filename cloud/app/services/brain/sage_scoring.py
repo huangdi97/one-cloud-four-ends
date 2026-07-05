@@ -1,6 +1,6 @@
 """Sage 记忆评分委托混入类。"""
 
-from cloud.app.services.sage_scoring_service import (
+from cloud.app.services.brain.sage_scoring_service import (
     determine_tier,
     normalize,
     score_episodic,

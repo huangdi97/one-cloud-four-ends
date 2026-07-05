@@ -4,8 +4,8 @@ import logging
 
 from fastapi import APIRouter, HTTPException
 
-from cloud.app.services.remediation_scoring import ScoreService
-from cloud.app.services.remediation_service import RemediationService
+from cloud.app.services.compliance_svc.remediation_scoring import ScoreService
+from cloud.app.services.compliance_svc.remediation_service import RemediationService
 
 logger = logging.getLogger(__name__)
 

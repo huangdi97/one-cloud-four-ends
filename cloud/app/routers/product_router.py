@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 
-from cloud.app.services.product_service import ProductService
+from cloud.app.services.rep_workbench.product_service import ProductService
 from shared.auth_scope import require_scope
 from shared.base import success
 

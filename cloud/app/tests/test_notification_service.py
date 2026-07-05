@@ -1,4 +1,4 @@
-from cloud.app.services.notification_service import NotificationService
+from cloud.app.services.rep_workbench.notification_service import NotificationService
 
 
 class TestNotificationService:

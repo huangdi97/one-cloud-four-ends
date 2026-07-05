@@ -10,7 +10,7 @@ from cloud.app.repositories import (
     ComplianceAuditRecordsRepository,
     TrainingCorrectionsRepository,
 )
-from cloud.app.services.report_templates import (
+from cloud.app.services.rep_workbench.report_templates import (
     ReportTemplateMixin,
     _n404,
     _now,

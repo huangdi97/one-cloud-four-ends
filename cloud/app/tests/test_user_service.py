@@ -1,4 +1,4 @@
-from cloud.app.services.user_service import UserService
+from cloud.app.services.rep_workbench.user_service import UserService
 
 
 class TestUserService:

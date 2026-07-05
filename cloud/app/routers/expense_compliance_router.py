@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends, Query
 
 from cloud.app.schemas.expense_compliance import ExpenseItem
-from cloud.app.services.expense_compliance_service import (
+from cloud.app.services.rep_workbench.expense_compliance_service import (
     check_expense,
     get_budget_status,
     suggest_alternative,

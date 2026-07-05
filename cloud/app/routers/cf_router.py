@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.content_factory_service import ContentFactoryService
+from cloud.app.services.rep_workbench.content_factory_service import ContentFactoryService
 from shared.auth_scope import require_scope
 from shared.base import success
 

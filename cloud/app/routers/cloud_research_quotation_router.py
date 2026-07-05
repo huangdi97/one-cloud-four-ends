@@ -6,8 +6,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from starlette import status
 
-from cloud.app.services.quotations_service import QUOTATION_TEMPLATES, generate_quotation
-from cloud.app.services.research_service import ResearchService
+from cloud.app.services.intel.research_service import ResearchService
+from cloud.app.services.platform_svc.quotations_service import QUOTATION_TEMPLATES, generate_quotation
 from shared.auth import get_current_user
 from shared.auth_scope import require_scope
 from shared.base import success
@@ -60,7 +60,7 @@ def create_quotation(
 from fastapi import APIRouter, Depends  # noqa: E402
 from pydantic import BaseModel  # noqa: E402
 
-from cloud.app.services.quotation_workflow_service import (  # noqa: E402
+from cloud.app.services.platform_svc.quotation_workflow_service import (  # noqa: E402
     approve,
     reject,
     submit_for_approval,

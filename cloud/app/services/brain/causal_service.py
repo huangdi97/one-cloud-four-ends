@@ -9,7 +9,7 @@ from cloud.app.repositories import (
     EpisodicMemoryRepository,
     KgEntitiesRepository,
 )
-from cloud.app.services.causal_graph import CausalGraphMixin
+from cloud.app.services.brain.causal_graph import CausalGraphMixin
 from shared.base_service import BaseService
 
 
