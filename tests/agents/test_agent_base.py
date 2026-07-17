@@ -173,3 +173,46 @@ class TestSpecializedAgentExecute:
         context = AgentContext(message="使用工具", tool_bridge=tools)
         response = await agent.execute(context)
         assert isinstance(response, AgentResponse)
+
+
+class _StubExecuteMixin:
+    """Mixin to provide a concrete execute implementation for BaseAgent subclasses in tests."""
+
+    async def execute(self, context: AgentContext) -> AgentResponse:  # type: ignore[misc]
+        return AgentResponse(reply="stub")
+
+
+class TestBaseAgentDefaultCapabilities:
+    """BaseAgent._default_capabilities 测试"""
+
+    def test_default_capabilities_returns_empty_list(self) -> None:
+        class NoOverrideAgent(_StubExecuteMixin, BaseAgent):
+            pass
+
+        agent = NoOverrideAgent()
+        assert agent.capabilities() == []
+
+    def test_default_capabilities_subclass_override(self) -> None:
+        class OverrideAgent(_StubExecuteMixin, BaseAgent):
+            def _default_capabilities(self) -> list[str]:
+                return ["a", "b"]
+
+        agent = OverrideAgent()
+        assert agent.capabilities() == ["a", "b"]
+
+    def test_capabilities_reads_identity_allowed_tools(self) -> None:
+        class IdentityAgent(_StubExecuteMixin, BaseAgent):
+            pass
+
+        agent = IdentityAgent()
+        agent._identity = SAMPLE_IDENTITY
+        assert agent.capabilities() == ["tool_a", "tool_b", "tool_c"]
+
+    def test_capabilities_fallback_when_identity_none(self) -> None:
+        class FallbackAgent(_StubExecuteMixin, BaseAgent):
+            def _default_capabilities(self) -> list[str]:
+                return ["fallback"]
+
+        agent = FallbackAgent()
+        agent._identity = None
+        assert agent.capabilities() == ["fallback"]

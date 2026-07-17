@@ -1,5 +1,6 @@
 """Agent运行时核心模块，提供"规划-决策-反思-执行-验证"五阶段执行循环；通过RuntimeState状态管理与StateSnapshot快照回滚机制保障任务可靠执行。"""
 
+import asyncio
 import logging
 import os
 import threading
@@ -139,6 +140,28 @@ class RuntimeCore:
         _start_time = time.monotonic()
         if self._streamer:
             self._streamer.stream(trace_id, "agent.start", {"agent_name": agent_key, "goal": goal, "context": context})
+        # Dispatch to dedicated BaseAgent for shell-to-complete agents
+        try:
+            agent = AgentRegistry.get(agent_key)
+            if agent and hasattr(agent, "execute_message"):
+                session_id = (user_context or {}).get("session_id", "")
+                user_id = (user_context or {}).get("user_id", "")
+                result = asyncio.run(agent.execute_message(goal, session_id, user_id))
+                if result is not None:
+                    self._tracer.end_trace("success", result)
+                    agent_requests_total.labels(agent_name=agent_key, status="success").inc()
+                    agent_active_count.labels(agent_name=agent_key).dec()
+                    if self._streamer:
+                        self._streamer.stream(trace_id, "agent.end", {"status": "success", "result": result.get("reply", "")})
+                    return RuntimeResult(
+                        status="success",
+                        result=result.get("reply", ""),
+                        iterations=1,
+                        tool_calls=0,
+                        logs=[],
+                    )
+        except Exception:
+            logger.exception("Dispatch failed for %s, falling back to L4 loop", agent_key)
         try:
             injection_reason = self._content_filter.check_input(goal)
             if injection_reason:

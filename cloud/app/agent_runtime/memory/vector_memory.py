@@ -5,6 +5,7 @@ import logging
 import os
 import sqlite3
 import struct
+import sys
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
@@ -58,8 +59,8 @@ class VectorMemory:
             )
             try:
                 conn.execute("ALTER TABLE agent_vector_memory ADD COLUMN shared_with TEXT DEFAULT '[]'")
-            except Exception:
-                pass
+            except Exception as e:
+                logger.warning("ALTER TABLE shared_with failed: %s", e)
             # FTS5 全文搜索虚拟表
             try:
                 conn.execute(
@@ -67,7 +68,7 @@ class VectorMemory:
                     "USING fts5(agent_name, key, content, content=agent_vector_memory, content_rowid=id)"
                 )
             except Exception:
-                logger.warning("FTS5 table creation failed (not available or already exists)")
+                logger.warning("FTS5 table creation failed (not available or already exists)", exc_info=True)
             conn.commit()
         except sqlite3.Error:
             logger.exception("Failed to ensure vector memory table")
@@ -75,6 +76,9 @@ class VectorMemory:
     def _get_model(self):
         if self._model is None:
             try:
+                _user_site = os.path.expanduser("~/.local/lib/python3.12/site-packages")
+                if _user_site not in sys.path:
+                    sys.path.insert(0, _user_site)
                 from sentence_transformers import SentenceTransformer
 
                 self._model = SentenceTransformer(self.EMBEDDING_MODEL)
@@ -84,6 +88,8 @@ class VectorMemory:
         return self._model
 
     def _get_embedding(self, text: str) -> list[float]:
+        """生成文本的嵌入向量。若 embedding 模型不可用（未安装），则返回全零向量（384维）作为降级策略。
+        降级后的全零向量将导致语义搜索退化为随机排序——调用方需自行检测此情况并告警。"""
         model = self._get_model()
         if model is not None:
             return model.encode(text, normalize_embeddings=True).tolist()
@@ -137,8 +143,8 @@ class VectorMemory:
                     "INSERT OR REPLACE INTO agent_vector_memory_fts (rowid, agent_name, key, content) VALUES (?, ?, ?, ?)",
                     (row_id["id"], agent_name, key, content),
                 )
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning("FTS sync failed: %s", e)
         conn.commit()
 
     def search(self, agent_name: str, query: str, top_k: int = 5, cross_agent: bool = True) -> list[dict]:
@@ -154,14 +160,14 @@ class VectorMemory:
         conn = self._get_connection()
         if cross_agent:
             rows = conn.execute(
-                "SELECT key, content, metadata, shared_with, agent_name, created_at "
+                "SELECT key, content, metadata, shared_with, agent_name, created_at, embedding "
                 "FROM agent_vector_memory WHERE agent_name=? "
-                "OR shared_with='[" * "]' OR shared_with LIKE ?",
+                "OR shared_with='[\"*\"]' OR shared_with LIKE ?",
                 (agent_name, f'%"{agent_name}"%'),
             ).fetchall()
         else:
             rows = conn.execute(
-                "SELECT key, content, metadata, shared_with, agent_name, created_at FROM agent_vector_memory WHERE agent_name=?",
+                "SELECT key, content, metadata, shared_with, agent_name, created_at, embedding FROM agent_vector_memory WHERE agent_name=?",
                 (agent_name,),
             ).fetchall()
         scored = []
@@ -197,7 +203,7 @@ class VectorMemory:
             rows = conn.execute(
                 "SELECT id, key, content, metadata, shared_with, agent_name, created_at, embedding "
                 "FROM agent_vector_memory WHERE agent_name=? "
-                "OR shared_with='[" * "]' OR shared_with LIKE ?",
+                "OR shared_with='[\"*\"]' OR shared_with LIKE ?",
                 (agent_name, f'%"{agent_name}"%'),
             ).fetchall()
         else:
@@ -278,7 +284,7 @@ class VectorMemory:
             return row["content"]
         if cross_agent:
             row = conn.execute(
-                "SELECT content FROM agent_vector_memory WHERE key=? AND (shared_with='[" * "]' OR shared_with LIKE ?)",
+                "SELECT content FROM agent_vector_memory WHERE key=? AND (shared_with='[\"*\"]' OR shared_with LIKE ?)",
                 (key, f'%"{agent_name}"%'),
             ).fetchone()
             if row:

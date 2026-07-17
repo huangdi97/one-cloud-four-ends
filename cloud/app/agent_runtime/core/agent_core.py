@@ -53,6 +53,40 @@ class AgentCore:
         else:
             return []
 
+    async def execute_message(self, message: str, session_id: str = "", user_id: str = "") -> dict | None:
+        """委托给专用 BaseAgent 实现执行消息（仅4个新Agent支持）。
+        返回 None 表示不支持委托，调用方应走L4循环。
+        返回 dict 包含 {reply, actions}。
+        """
+        try:
+            key = self.identity.key
+            if key == "competitor_crawler":
+                from cloud.app.agents.competitor_crawler_agent import CompetitorCrawlerAgent
+
+                agent = CompetitorCrawlerAgent(identity=self.identity)
+            elif key == "knowledge_worker":
+                from cloud.app.agents.knowledge_worker_agent import KnowledgeWorkerAgent
+
+                agent = KnowledgeWorkerAgent(identity=self.identity)
+            elif key == "opportunity_scanner":
+                from cloud.app.agents.opportunity_scanner_agent import OpportunityScannerAgent
+
+                agent = OpportunityScannerAgent(identity=self.identity)
+            elif key == "sales_coach_analyst":
+                from cloud.app.agents.sales_coach_analyst_agent import SalesCoachAnalystAgent
+
+                agent = SalesCoachAnalystAgent(identity=self.identity)
+            else:
+                return None
+            from cloud.app.agents.base_agent import AgentContext
+
+            ctx = AgentContext(message=message, session_id=session_id, user_id=user_id)
+            response = await agent.execute(ctx)
+            return {"reply": response.reply, "actions": response.actions}
+        except Exception:
+            logger.exception("execute_message failed for %s", self.identity.key)
+            return None
+
     async def _compliance_insights(self, page_id: str, user_id: str) -> list[Insight]:
         """Query compliance data for real insights."""
         try:

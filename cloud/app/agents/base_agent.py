@@ -38,6 +38,13 @@ class BaseAgent(ABC):
     async def execute(self, context: AgentContext) -> AgentResponse:
         """执行 Agent 逻辑，返回结构化响应。"""
 
-    @abstractmethod
     def capabilities(self) -> list[str]:
-        """返回 Agent 的能力列表。"""
+        """默认从 identity 读取 allowed_tools。子类可覆盖 fallback 列表。"""
+        if hasattr(self, "_identity") and self._identity is not None:
+            if hasattr(self._identity, "allowed_tools") and self._identity.allowed_tools:
+                return list(self._identity.allowed_tools)
+        return self._default_capabilities()
+
+    def _default_capabilities(self) -> list[str]:
+        """子类覆盖此方法提供降级能力列表。"""
+        return []
